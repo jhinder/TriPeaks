@@ -56,10 +56,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BackSelectDialog.xaml.cs">
+      <DependentUpon>BackSelectDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StatisticsPane.xaml.cs">
       <DependentUpon>StatisticsPane.xaml</DependentUpon>
     </Compile>
     <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BackSelectDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

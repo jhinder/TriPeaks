@@ -5,5 +5,10 @@
     <Application.Resources>
         <SolidColorBrush x:Key="GreenFeltBackground">#FF004000</SolidColorBrush>
         <SolidColorBrush x:Key="NeutralGrey">#FFC0C0C0</SolidColorBrush>
+
+        <!-- Best scaling algorithm for images -->
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+        </Style>
     </Application.Resources>
 </Application>
