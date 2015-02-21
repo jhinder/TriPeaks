@@ -19,6 +19,17 @@ namespace TriPeaks
         public Stack<Card> BottomStack { get; set; }
 
         /// <summary>
+        /// Returns how many cards are left in the stack.
+        /// </summary>
+        public int StackCount
+        {
+            get
+            {
+                return BottomStack.Count;
+            }
+        }
+
+        /// <summary>
         /// The current card, on top of which all moves are made.
         /// </summary>
         public Card CurrentCard { get; set; }
@@ -61,7 +72,7 @@ namespace TriPeaks
             Card tmpCard;
             while (rawDeck.Any(c => c.Hidden))
             {
-                int rand = r.Next(0, 51);
+                int rand = r.Next(0, 52);
                 tmpCard = rawDeck.ElementAt(rand);
                 if (tmpCard.Hidden) {
                     shuffledDeck.Enqueue(tmpCard);
@@ -71,6 +82,7 @@ namespace TriPeaks
 
             // Place 23 cards in the bottom stack.
             // (Yes, we get 24 cards at first. Hang on a second and you'll see why.)
+            BottomStack = new Stack<Card>();
             for (int i = 0; i < 23; i++)
                 BottomStack.Push(shuffledDeck.Dequeue());
             foreach (Card c in BottomStack)
