@@ -1,7 +1,17 @@
 ﻿<Window x:Class="TriPeaks.HallOfFame"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TriPeaks Hall of Fame" Height="349" Width="300">
+        Title="TriPeaks Hall of Fame" Height="280" Width="386">
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" />
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Close" Key="Enter" />
+        <KeyBinding Command="ApplicationCommands.Close" Key="Escape" />
+    </Window.InputBindings>
+    
     <DockPanel LastChildFill="False">
 
         <GroupBox Header="Fame Members" DockPanel.Dock="Top">
@@ -40,7 +50,10 @@
             </Grid>
         </GroupBox>
         
-        <Button DockPanel.Dock="Bottom">OK</Button>
+        <Button Command="ApplicationCommands.Close"
+                DockPanel.Dock="Bottom"
+                IsDefault="True"
+                Content="OK" />
         
     </DockPanel>
 </Window>

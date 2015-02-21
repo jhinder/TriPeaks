@@ -23,5 +23,15 @@ namespace TriPeaks
         {
             InitializeComponent();
         }
+
+        private void SaveExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void CancelExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
     }
 }
