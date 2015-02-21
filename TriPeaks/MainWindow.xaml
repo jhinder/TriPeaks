@@ -4,7 +4,8 @@
         xmlns:local="clr-namespace:TriPeaks"
         Title="TriPeaks"
         Height="480" Width="640"
-        Background="{StaticResource GreenFeltBackground}">
+        Background="{StaticResource GreenFeltBackground}"
+        Closing="Window_Closing">
     
     <Window.DataContext>
         <local:TriPeaksViewModel />
@@ -26,6 +27,7 @@
         <CommandBinding Command="{StaticResource ChangeDeckCommand}" Executed="ChangeDeckExecuted" />
         <CommandBinding Command="{StaticResource ShowHallOfFameCommand}" Executed="ShowHallOfFameExecuted" />
         <CommandBinding Command="{StaticResource ShowInfoCommand}" Executed="ShowInfoExecuted" />
+        <CommandBinding Command="ApplicationCommands.Close" Executed="WindowCloseExecuted" />
     </Window.CommandBindings>
     
     <Window.InputBindings>
