@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -131,6 +132,30 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
