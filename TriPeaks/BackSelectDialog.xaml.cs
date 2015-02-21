@@ -23,5 +23,10 @@ namespace TriPeaks
         {
             InitializeComponent();
         }
+
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+            IconHelper.RemoveIcon(this);
+        }
     }
 }

@@ -64,6 +64,7 @@
     <Compile Include="StatisticsPane.xaml.cs">
       <DependentUpon>StatisticsPane.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WinAPI.cs" />
     <Page Include="AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
