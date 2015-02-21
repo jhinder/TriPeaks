@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="TriPeaks.StatisticsPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TriPeaks"
+             Background="{StaticResource NeutralGrey}">
+    <UserControl.DataContext>
+        <local:StatisticsViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <local:IntToDollarConverter x:Key="DollarConverter" />
+        <local:StreakToMoneyConverter x:Key="StreakConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="System" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Col 1 & 2 -->
+        <Label Grid.Row="0" Grid.Column="0"
+               Content="Game Winnings" />
+        <Label Grid.Row="0" Grid.Column="1"
+               Content="{Binding Path=Winnings, Mode=OneWay, Converter={StaticResource DollarConverter}}" />
+
+        <Label Grid.Row="1" Grid.ColumnSpan="2"
+               Content="Most Won $0 Lost -$0" /> <!-- to bind -->
+
+        <Label Grid.Row="2" Grid.Column="0"
+               Content="Current Streak" />
+        <Label Grid.Row="2" Grid.Column="1"
+               Content="{Binding Path=CurrentStreak, Mode=OneWay, Converter={StaticResource StreakConverter}}" />
+
+        <!-- Col 3 & 4 -->
+        <Label Grid.Row="0" Grid.Column="2"
+               Content="Session Winnings" />
+        <Label Grid.Row="0" Grid.Column="3"
+               Content="{Binding Path=SessionWinnings, Mode=OneWay, Converter={StaticResource DollarConverter}}" />
+        
+        <Label Grid.Row="1" Grid.Column="2"
+               Content="Session Average" />
+        <Label Grid.Row="1" Grid.Column="3"
+               Content="{Binding Path=SessionAverage, Mode=OneWay, Converter={StaticResource DollarConverter}}" />
+        
+        <Label Grid.Row="2" Grid.Column="2"
+               Content="Session Games" />
+        <Label Grid.Row="2" Grid.Column="3"
+               Content="{Binding Path=SessionGames, Mode=OneWay}" />
+
+        <!-- Col 5 & 6 -->
+        <Label Grid.Row="0" Grid.Column="4"
+               Content="Player Games" />
+        <Label Grid.Row="0" Grid.Column="5"
+               Content="{Binding Path=PlayerGames, Mode=OneWay}" />
+
+        <Label Grid.Row="1" Grid.Column="4"
+               Content="Player Average" />
+        <Label Grid.Row="1" Grid.Column="5"
+               Content="{Binding Path=PlayerAverage, Mode=OneWay, Converter={StaticResource DollarConverter}}" />
+
+        <Label Grid.Row="2" Grid.Column="4"
+               Content="Longest Streak" />
+        <Label Grid.Row="2" Grid.Column="5"
+               Content="{Binding Path=LongestStreak, Mode=OneWay, Converter={StaticResource StreakConverter}}" />
+
+    </Grid>
+</UserControl>
