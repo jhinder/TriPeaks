@@ -1,8 +1,58 @@
 ﻿<Window x:Class="TriPeaks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="TriPeaks"
+        Height="480" Width="640"
+        Background="{StaticResource GreenFeltBackground}">
+    
+    <Window.Resources>
+        <RoutedUICommand x:Key="DealCommand" Text="Deal" />
+        <RoutedUICommand x:Key="ChangePlayerCommand" Text="Change Player" />
+        <RoutedUICommand x:Key="ResetGameCommand" Text="Reset" />
+        <RoutedUICommand x:Key="ChangeDeckCommand" Text="Change Deck" />
+        <RoutedUICommand x:Key="ShowHallOfFameCommand" Text="Hall of Fame" />
+        <RoutedUICommand x:Key="ShowInfoCommand" Text="About" />
+    </Window.Resources>
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource DealCommand}" Executed="DealCommandExecuted" />
+        <CommandBinding Command="{StaticResource ChangePlayerCommand}" Executed="ChangePlayerExecuted" />
+        <CommandBinding Command="{StaticResource ResetGameCommand}" Executed="ResetGameExecuted" />
+        <CommandBinding Command="{StaticResource ChangeDeckCommand}" Executed="ChangeDeckExecuted" />
+        <CommandBinding Command="{StaticResource ShowHallOfFameCommand}" Executed="ShowHallOfFameExecuted" />
+        <CommandBinding Command="{StaticResource ShowInfoCommand}" Executed="ShowInfoExecuted" />
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Command="{StaticResource DealCommand}" Key="F2" />
+    </Window.InputBindings>
+    
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="_Game" >
+                <MenuItem Header="_Deal" Command="{StaticResource DealCommand}" />
+                <MenuItem Header="_Change Player&#8230;" Command="{StaticResource ChangePlayerCommand}" />
+                <MenuItem Header="_Reset" Command="{StaticResource ResetGameCommand}" />
+                <Separator />
+                <MenuItem Header="E_xit" Command="ApplicationCommands.Close" />
+            </MenuItem>
+
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Deck&#8230;" Command="{StaticResource ChangeDeckCommand}" />
+                <MenuItem Header="_Show Statistics" IsCheckable="True" IsChecked="{Binding Path=ShowStatistics}" />
+                <MenuItem Header="_Hall of Fame&#8230;" Command="{StaticResource ShowHallOfFameCommand}" />
+            </MenuItem>
+
+            <MenuItem Header="_Help">
+                <!-- no idea what we do about the help file -->
+                <Separator />
+                <MenuItem Header="_About TriPeaks&#8230;" Command="{StaticResource ShowInfoCommand}" />
+            </MenuItem>
+        </Menu>
         
-    </Grid>
+        <Canvas>
+            
+        </Canvas>
+        
+    </StackPanel>
 </Window>

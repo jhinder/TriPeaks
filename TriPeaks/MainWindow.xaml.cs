@@ -23,5 +23,44 @@ namespace TriPeaks
         {
             InitializeComponent();
         }
+
+        #region Commands
+
+        private void DealCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangePlayerExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ResetGameExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangeDeckExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private async void ShowHallOfFameExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            await Dispatcher.InvokeAsync((Action)(() => {
+                (new HallOfFame()).ShowDialog();
+            }));
+        }
+
+        private async void ShowInfoExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            await Dispatcher.InvokeAsync((Action)(() =>
+            {
+                (new AboutDialog()).ShowDialog();
+            }));
+        }
+
+        #endregion
     }
 }

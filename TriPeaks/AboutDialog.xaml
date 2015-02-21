@@ -1,0 +1,15 @@
+﻿<Window x:Class="TriPeaks.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About TriPeaks"
+        Height="300" Width="300"
+        Background="{StaticResource NeutralGrey}">
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Center">
+            <Run>TriPeaks</Run>
+            <LineBreak />
+            <Run>&#169; jhinder 2015</Run>
+        </TextBlock>
+        <Button>OK</Button>
+    </StackPanel>
+</Window>
