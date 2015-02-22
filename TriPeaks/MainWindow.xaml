@@ -63,6 +63,11 @@
                 </Style>
             </Canvas.Resources>
             
+            <Canvas DataContext="{Binding Path=CardManager}">
+                <local:CardRenderer DataContext="{Binding Path=CurrentCard, Mode=OneWay}" />
+            </Canvas>
+            
+            
             <TextBlock Text="{Binding Path=Score, Converter={StaticResource WinLossConverter}, FallbackValue='Won $0'}" Canvas.Left="10" Canvas.Top="212" />
             <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="255" />
             <TextBlock Text="{Binding Path=AdditionalString, FallbackValue='Additional string'}" Canvas.Left="10" Canvas.Top="290" />
@@ -72,6 +77,10 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
             <Button Click="btnSetString">Set add. string</Button>
             <Button Click="btnDrawFromStack">Draw from stack</Button>
+            <Button Click="btnPeak1">1st Peak</Button>
+            <Button Click="btnPeak2">2nd Peak</Button>
+            <Button Click="btnPeak3">3rd Peak</Button>
+            <Button Click="btnResetPeaks">Reset Peaks</Button>
         </StackPanel>
         
     </DockPanel>

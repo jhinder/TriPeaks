@@ -118,9 +118,33 @@ namespace TriPeaks
 
         private void btnDrawFromStack(object sender, RoutedEventArgs e)
         {
-            viewModel.CardManager.MoveStackToCurrent();
-            viewModel.Losses += 5;
-            // Does not refresh count (yet)
+            if (viewModel.CardManager == null)
+                return; // will not happen once everything is in place
+            bool moveSuccess = viewModel.CardManager.TryMoveStackToCurrent();
+            if (moveSuccess)
+                viewModel.Losses += 5;
+            else
+                MessageBox.Show("No cards left");
+        }
+
+        private void btnPeak1(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReachedPeak(1);
+        }
+
+        private void btnPeak2(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReachedPeak(2);
+        }
+
+        private void btnPeak3(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReachedPeak(3);
+        }
+
+        private void btnResetPeaks(object sender, RoutedEventArgs e)
+        {
+            viewModel.ReachedPeak(0);
         }
 
         #endregion
@@ -179,6 +203,25 @@ namespace TriPeaks
                 _cardHolder = value;
                 RaisePropertyChanged("CardManager");
             }
+        }
+
+        private string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
+        private short reachedPeaks;
+
+        public void ReachedPeak(short number)
+        {
+            if (number == 0) {
+                reachedPeaks = 0;
+                return;
+            }
+            if (number < 1 || number > 3)
+                throw new ArgumentOutOfRangeException();
+            reachedPeaks++;
+            int bonus = (reachedPeaks != 3 ? 15 : 30);
+            Wins += bonus;
+            AdditionalString = String.Format("You have {0} giving you a ${1} bonus!",
+                (reachedPeaks == 3 ? "Tri-Conquered" : String.Format("reached Peak {0}", peakNames[number - 1])),
+                bonus);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
