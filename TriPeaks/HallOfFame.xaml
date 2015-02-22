@@ -1,9 +1,16 @@
 ﻿<Window x:Class="TriPeaks.HallOfFame"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TriPeaks"
         Title="TriPeaks Hall of Fame"
-        Height="280" Width="386"
+        Height="360" Width="386"
+        ResizeMode="NoResize"
+        MinWidth="386"
+        SizeToContent="Width"
         SourceInitialized="Window_SourceInitialized">
+    <Window.DataContext>
+        <local:HighscoreViewModel />
+    </Window.DataContext>
     
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" />
@@ -16,7 +23,8 @@
     
     <DockPanel LastChildFill="False">
 
-        <GroupBox Header="Fame Members" DockPanel.Dock="Top">
+        <GroupBox Header="Fame Members" DockPanel.Dock="Top"
+                  Margin="4">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -48,6 +56,28 @@
                 <Label Grid.Row="7">Eigth</Label>
                 <Label Grid.Row="8">Ninth</Label>
                 <Label Grid.Row="9">Tenth</Label>
+                
+                <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=Names[0]}"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Names[1]}"/>
+                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Names[2]}"/>
+                <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Names[3]}"/>
+                <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=Names[4]}"/>
+                <Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=Names[5]}"/>
+                <Label Grid.Row="6" Grid.Column="1" Content="{Binding Path=Names[6]}"/>
+                <Label Grid.Row="7" Grid.Column="1" Content="{Binding Path=Names[7]}"/>
+                <Label Grid.Row="8" Grid.Column="1" Content="{Binding Path=Names[8]}"/>
+                <Label Grid.Row="9" Grid.Column="1" Content="{Binding Path=Names[9]}"/>
+
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding Path=Scores[0]}"/>
+                <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=Scores[1]}"/>
+                <Label Grid.Row="2" Grid.Column="2" Content="{Binding Path=Scores[2]}"/>
+                <Label Grid.Row="3" Grid.Column="2" Content="{Binding Path=Scores[3]}"/>
+                <Label Grid.Row="4" Grid.Column="2" Content="{Binding Path=Scores[4]}"/>
+                <Label Grid.Row="5" Grid.Column="2" Content="{Binding Path=Scores[5]}"/>
+                <Label Grid.Row="6" Grid.Column="2" Content="{Binding Path=Scores[6]}"/>
+                <Label Grid.Row="7" Grid.Column="2" Content="{Binding Path=Scores[7]}"/>
+                <Label Grid.Row="8" Grid.Column="2" Content="{Binding Path=Scores[8]}"/>
+                <Label Grid.Row="9" Grid.Column="2" Content="{Binding Path=Scores[9]}"/>
 
             </Grid>
         </GroupBox>
@@ -55,7 +85,10 @@
         <Button Command="ApplicationCommands.Close"
                 DockPanel.Dock="Bottom"
                 IsDefault="True"
-                Content="OK" />
+                Content="OK"
+                HorizontalAlignment="Center"
+                Width="64"
+                Margin="4"/>
         
     </DockPanel>
 </Window>

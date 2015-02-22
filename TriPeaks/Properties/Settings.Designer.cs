@@ -34,5 +34,29 @@ namespace TriPeaks.Properties {
                 this["Back"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("N1;N2;N3;N4;N5;N6;N7;N8;N9;10")]
+        public string Names {
+            get {
+                return ((string)(this["Names"]));
+            }
+            set {
+                this["Names"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100;90;80;70;60;50;40;30;20;10")]
+        public string Scores {
+            get {
+                return ((string)(this["Scores"]));
+            }
+            set {
+                this["Scores"] = value;
+            }
+        }
     }
 }
