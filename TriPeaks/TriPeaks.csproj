@@ -138,31 +138,54 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_1.png" />
+    <Resource Include="Resources\backs\back_1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_2.png" />
+    <Resource Include="Resources\backs\back_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_3.png" />
+    <Resource Include="Resources\backs\back_3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_4.png" />
+    <Resource Include="Resources\backs\back_4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_5.png" />
+    <Resource Include="Resources\backs\back_5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_6.png" />
+    <Resource Include="Resources\backs\back_6.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_7.png" />
+    <Resource Include="Resources\backs\back_7.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_8.png" />
+    <Resource Include="Resources\backs\back_8.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="appicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\suit\club.png" />
+    <Resource Include="Resources\suit\diamond.png" />
+    <Resource Include="Resources\suit\heart.png" />
+    <Resource Include="Resources\suit\spade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
