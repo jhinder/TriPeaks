@@ -2,8 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="About TriPeaks"
-        Height="320" Width="325"
-        Background="{StaticResource NeutralGrey}">
+        Height="220" Width="300"
+        SizeToContent="Height"
+        Background="{StaticResource NeutralGrey}"
+        SourceInitialized="Window_SourceInitialized"
+        ResizeMode="NoResize">
+    
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" />
     </Window.CommandBindings>
@@ -12,21 +16,42 @@
         <KeyBinding Command="ApplicationCommands.Close" Key="Enter" />
         <KeyBinding Command="ApplicationCommands.Close" Key="Escape" />
     </Window.InputBindings>
-    
-    <DockPanel LastChildFill="False">
-        <!-- There will be some sort of 'header image' at the top. -->
-        <Image DockPanel.Dock="Top" />
-        
-        <!-- And of course there will be the TriPeaks icon.s -->
-        <TextBlock HorizontalAlignment="Center" DockPanel.Dock="Top">
-            <Run>TriPeaks</Run>
-            <LineBreak />
-            <Run>&#169; jhinder 2015</Run>
-        </TextBlock>
-        
+
+    <DockPanel LastChildFill="False" Margin="8">
+
+        <StackPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="4">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="0,4" />
+                </Style>
+            </StackPanel.Resources>
+            
+            <TextBlock TextWrapping="Wrap">
+                <Run FontSize="12" FontWeight="Bold">TriPeaks</Run>
+                <LineBreak />
+                <Run>A card game inspired by the 1991 game for Windows.</Run>
+            </TextBlock>
+            
+            <TextBlock>
+                <Run>Version 0.1</Run>
+                <LineBreak />
+                <Run>&#169; jhinder 2015</Run>
+            </TextBlock>
+            
+            <TextBlock>
+                <Hyperlink NavigateUri="https://github.com/jhinder/TriPeaks"
+                           RequestNavigate="Hyperlink_RequestNavigate">
+                    https://github.com/jhinder/TriPeaks
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
         <Button Command="ApplicationCommands.Close"
                 Content="OK"
                 DockPanel.Dock="Bottom"
-                HorizontalAlignment="Center" />
+                HorizontalAlignment="Center"
+                Margin="8"
+                Width="64" />
     </DockPanel>
 </Window>
