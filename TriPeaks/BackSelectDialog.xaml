@@ -51,6 +51,16 @@
                     <Setter Property="BorderBrush" Value="Black" />
                     <Setter Property="Command" Value="{StaticResource SetBackCommand}" />
                     <Setter Property="Padding" Value="2" />
+                    <Setter Property="BorderThickness" Value="2" />
+                    <Setter Property="BorderBrush">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource BorderConverter}">
+                                <Binding Path="SelectedBack" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                        
+                    </Setter>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
@@ -64,52 +74,42 @@
                 <ColumnDefinition Width="0.25*" />
             </Grid.ColumnDefinitions>
 
-            <!-- The BorderThickness thing could surely be made better somehow. -->
-            <!-- BorderThickness="{Binding Path=SelectedBack,Converter={StaticResource BorderConverter}, ConverterParameter={Binding RelativeSource={RelativeSource Self}, Path=CommandParameter}}" -->
             <Button Grid.Row="0" Grid.Column="0"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=0}"
                     CommandParameter="0">
-                <Image Source="{StaticResource ImageA}"/>
+            <Image Source="{StaticResource ImageA}"/>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="1"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=1}"
                     CommandParameter="1">
                 <Image Source="{StaticResource ImageB}"/>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="2"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=2}"
                     CommandParameter="2">
                 <Image Source="{StaticResource ImageC}"/>
             </Button>
 
             <Button Grid.Row="0" Grid.Column="3"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=3}"
                     CommandParameter="3">
                 <Image Source="{StaticResource ImageD}"/>
             </Button>
 
             <Button Grid.Row="1" Grid.Column="0"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=4}"
                     CommandParameter="4">
                 <Image Source="{StaticResource ImageE}"/>
             </Button>
 
             <Button Grid.Row="1" Grid.Column="1"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=5}"
                     CommandParameter="5">
                 <Image Source="{StaticResource ImageF}"/>
             </Button>
 
             <Button Grid.Row="1" Grid.Column="2"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=6}"
                     CommandParameter="6">
                 <Image Source="{StaticResource ImageG}"/>
             </Button>
 
             <Button Grid.Row="1" Grid.Column="3"
-                    BorderThickness="{Binding Path=SelectedBack, Converter={StaticResource BorderConverter}, ConverterParameter=7}"
                     CommandParameter="7">
                 <Image Source="{StaticResource ImageH}"/>
             </Button>

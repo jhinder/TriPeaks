@@ -106,14 +106,17 @@ namespace TriPeaks
     /// <summary>
     /// Converts the selected card back index to a border thickness (to show or hide the border)
     /// </summary>
-    public class IndexToBorderConverter : IValueConverter
+    public class IndexToBorderConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return (value.ToString() == parameter.ToString()) ? 2 : 0;
+            /* First object: selected index (int)
+             * Second object: button index (int) */
+            Color c = (values[0].ToString() == values[1].ToString() ? Colors.Black : Colors.White);
+            return new SolidColorBrush(c);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }
