@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TriPeaks
 {
-    class CardHolder
+    class CardHolder : INotifyPropertyChanged
     {
         /// <summary>
         /// The raw deck. Contains all available playing cards.
         /// </summary>
         private static IList<Card> rawDeck;
 
+        private Stack<Card> _bottomStack;
         /// <summary>
         /// The bottom stack from which the player can draw cards,
         /// </summary>
-        public Stack<Card> BottomStack { get; set; }
+        public Stack<Card> BottomStack {
+            get { return _bottomStack; }
+            private set
+            {
+                _bottomStack = value;
+                RaisePropertyChanged("BottomStack");
+                RaisePropertyChanged("StackCount");
+            }
+        }
 
         /// <summary>
         /// Returns how many cards are left in the stack.
@@ -111,10 +121,16 @@ namespace TriPeaks
         /// <summary>
         /// Moves the top card of the bottom stack to the current playing card.
         /// </summary>
-        public void MoveStackToCurrent()
+        /// <returns>true if a move was possible and successful, otherwise false.</returns>
+        public bool TryMoveStackToCurrent()
         {
-            if (BottomStack.Count() != 0)
-                CurrentCard = BottomStack.Pop();
+            if (BottomStack.Count() == 0)
+                return false;
+
+            CurrentCard = BottomStack.Pop();
+            RaisePropertyChanged("BottomCard");
+            RaisePropertyChanged("StackCount");
+            return true;
         }
 
         /// <summary>
@@ -152,6 +168,14 @@ namespace TriPeaks
             for (short colour = 0; colour < 4; colour++)
                 for (short value = 0; value < 13; value++)
                     yield return new Card((CardColours)colour, (CardValues)value);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

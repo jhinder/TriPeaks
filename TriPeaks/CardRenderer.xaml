@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="TriPeaks.CardRenderer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TriPeaks"
+             Height="86" Width="64"
+             Background="White">
+    <UserControl.DataContext>
+        <local:Card />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <local:ColourToSuitConverter x:Key="SuitConverter" />
+        <local:CardToNumberConverter x:Key="NumberConverter" />
+        <local:SuitToColourConverter x:Key="ColourConverter" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="8" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*" />
+            <ColumnDefinition Width="0.70*" />
+            <ColumnDefinition Width="0.15*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        
+        <!-- TODO Image overlay for hidden cards -->
+        
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Foreground="{Binding Path=Colour, Converter={StaticResource ColourConverter}}"
+                   Text="{Binding Path=Value, Converter={StaticResource NumberConverter}}" />
+        <Image Grid.Row="1" Grid.Column="0"
+               Width="10" Height="9"
+               Source="{Binding Path=Colour, Converter={StaticResource SuitConverter}}" />
+
+        <TextBlock Grid.Row="5" Grid.Column="2"
+                   RenderTransformOrigin="0.5, 0.5"
+                   Foreground="{Binding Path=Colour, Converter={StaticResource ColourConverter}}"
+                   Text="{Binding Path=Value, Converter={StaticResource NumberConverter}}">
+           <TextBlock.RenderTransform>
+                <RotateTransform Angle="180" />
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <Image Grid.Row="4" Grid.Column="2"
+               Width="10" Height="9"
+               Source="{Binding Path=Colour, Converter={StaticResource SuitConverter}}">
+            <Image.RenderTransform>
+                <!-- TODO The image's transformation is still flaky. -->
+                <RotateTransform Angle="180" />
+            </Image.RenderTransform>
+        </Image>
+
+        <Image Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" />
+        <Image Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" />
+        
+    </Grid>
+</UserControl>

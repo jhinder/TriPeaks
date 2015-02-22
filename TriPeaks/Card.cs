@@ -41,6 +41,8 @@ namespace TriPeaks
             this.Hidden = hidden;
         }
 
+        public Card() { }
+
     }
 
     static class CardExtensions
