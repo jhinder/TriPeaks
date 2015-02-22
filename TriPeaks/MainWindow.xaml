@@ -2,8 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TriPeaks"
+        x:Name="GameWindow"
         Title="TriPeaks"
         Height="480" Width="640"
+        MinHeight="{Binding ElementName=GameWindow, Path=Height, Mode=OneTime}"
+        MinWidth="{Binding ElementName=GameWindow, Path=Width, Mode=OneTime}"
         Background="{StaticResource GreenFeltBackground}"
         Closing="Window_Closing">
     
@@ -13,17 +16,15 @@
     
     <Window.Resources>
         <RoutedUICommand x:Key="DealCommand" Text="Deal" />
-        <RoutedUICommand x:Key="ChangePlayerCommand" Text="Change Player" />
-        <RoutedUICommand x:Key="ResetGameCommand" Text="Reset" />
         <RoutedUICommand x:Key="ChangeDeckCommand" Text="Change Deck" />
         <RoutedUICommand x:Key="ShowHallOfFameCommand" Text="Hall of Fame" />
         <RoutedUICommand x:Key="ShowInfoCommand" Text="About" />
+
+        <local:WinLossConverter x:Key="WinLossConverter" />
     </Window.Resources>
     
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource DealCommand}" Executed="DealCommandExecuted" />
-        <CommandBinding Command="{StaticResource ChangePlayerCommand}" Executed="ChangePlayerExecuted" />
-        <CommandBinding Command="{StaticResource ResetGameCommand}" Executed="ResetGameExecuted" />
         <CommandBinding Command="{StaticResource ChangeDeckCommand}" Executed="ChangeDeckExecuted" />
         <CommandBinding Command="{StaticResource ShowHallOfFameCommand}" Executed="ShowHallOfFameExecuted" />
         <CommandBinding Command="{StaticResource ShowInfoCommand}" Executed="ShowInfoExecuted" />
@@ -35,37 +36,42 @@
     </Window.InputBindings>
     
     <DockPanel LastChildFill="False">
+        
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Game" >
                 <MenuItem Header="_Deal" Command="{StaticResource DealCommand}" />
-                <MenuItem Header="_Change Player&#8230;" Command="{StaticResource ChangePlayerCommand}" />
-                <MenuItem Header="_Reset" Command="{StaticResource ResetGameCommand}" />
-                <Separator />
                 <MenuItem Header="E_xit" Command="ApplicationCommands.Close" />
             </MenuItem>
 
             <MenuItem Header="_Options">
                 <MenuItem Header="_Deck&#8230;" Command="{StaticResource ChangeDeckCommand}" />
-                <MenuItem Header="_Show Statistics" IsCheckable="True" IsChecked="{Binding Path=ShowStatistics}" />
-                <MenuItem Header="_Hall of Fame&#8230;" Command="{StaticResource ShowHallOfFameCommand}" />
+                <MenuItem Header="_Highscores&#8230;" Command="{StaticResource ShowHallOfFameCommand}" />
             </MenuItem>
-
+            
             <MenuItem Header="_Help">
-                <!-- no idea what we do about the help file -->
-                <Separator />
                 <MenuItem Header="_About TriPeaks&#8230;" Command="{StaticResource ShowInfoCommand}" />
             </MenuItem>
+
+
         </Menu>
-        
+
         <Canvas>
+            <Canvas.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                </Style>
+            </Canvas.Resources>
             
+            <TextBlock Text="{Binding Path=Score, Converter={StaticResource WinLossConverter}, FallbackValue='Won $0'}" Canvas.Left="10" Canvas.Top="212" />
+            <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="255" />
+            <TextBlock Text="{Binding Path=AdditionalString, FallbackValue='Additional string'}" Canvas.Left="10" Canvas.Top="290" />
         </Canvas>
-        
-        <!-- Statistics pane -->
-        <StackPanel DockPanel.Dock="Bottom"
-                    Visibility="{Binding Path=ShowStatistics, Converter={local:BoolToVisibilityConverter}}">
-            <!-- We can't bind it to ShowStatistics directly because that takes the SP's data context. -->
-            <local:StatisticsPane />
+
+        <!-- Debug panel -->
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Button Click="btnSetString">Set add. string</Button>
+            <Button Click="btnDrawFromStack">Draw from stack</Button>
         </StackPanel>
         
     </DockPanel>

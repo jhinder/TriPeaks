@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -37,22 +39,6 @@ namespace TriPeaks
         private void DealCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             Redeal();
-        }
-
-        private async void ChangePlayerExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            await AsyncDialog<PlayerNameDialog>();
-        }
-
-        private void ResetGameExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            var mres = MessageBox.Show("Do you really want to reset your score to zero?",
-                "TriPeaks Reset",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question,
-                MessageBoxResult.Yes);
-            if (mres == MessageBoxResult.Yes)
-                ; // Reset statistics
         }
 
         private async void ChangeDeckExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -94,9 +80,11 @@ namespace TriPeaks
                 if (mres == MessageBoxResult.No)
                     return;
                 else
-                    ; // -$140
+                    viewModel.Losses += 140;
             }
             GameInSession = true;
+
+            viewModel.CardManager = new CardHolder();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -112,7 +100,7 @@ namespace TriPeaks
                 if (mres == MessageBoxResult.No)
                     e.Cancel = true;
                 else
-                    ; // -$140
+                    viewModel.Losses += 140;
             }
         }
 
@@ -120,18 +108,76 @@ namespace TriPeaks
         {
             this.Close();
         }
+
+        #region Debug functions
+
+        private void btnSetString(object sender, RoutedEventArgs e)
+        {
+            viewModel.AdditionalString = "This is a string!";
+        }
+
+        private void btnDrawFromStack(object sender, RoutedEventArgs e)
+        {
+            viewModel.CardManager.MoveStackToCurrent();
+            viewModel.Losses += 5;
+            // Does not refresh count (yet)
+        }
+
+        #endregion
+
     }
+
+    #region View Model
 
     internal class TriPeaksViewModel : INotifyPropertyChanged
     {
 
-        private bool _showStatistics;
-        public bool ShowStatistics {
-            get { return _showStatistics; }
+        private string _additionalString;
+        public string AdditionalString
+        {
+            get { return _additionalString;  }
             set
             {
-                _showStatistics = value;
-                RaisePropertyChanged("ShowStatistics");
+                _additionalString = value;
+                RaisePropertyChanged("AdditionalString");
+            }
+        }
+
+        private int _wins;
+        public int Wins {
+            get { return _wins;  }
+            set
+            {
+                _wins = value;
+                RaisePropertyChanged("Wins");
+                RaisePropertyChanged("Score");
+            }
+        }
+
+        private int _losses;
+        public int Losses {
+            get { return _losses; }
+            set
+            {
+                _losses = value;
+                RaisePropertyChanged("Losses");
+                RaisePropertyChanged("Score");
+            }
+        }
+
+        public int Score
+        {
+            get { return Wins + (Losses * (-1)); }
+        }
+
+        private CardHolder _cardHolder;
+        public CardHolder CardManager
+        {
+            get { return _cardHolder; }
+            set
+            {
+                _cardHolder = value;
+                RaisePropertyChanged("CardManager");
             }
         }
 
@@ -143,6 +189,10 @@ namespace TriPeaks
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+    #endregion
+
+    #region Converters
 
     internal class BoolToVisibilityConverter : MarkupExtension, IValueConverter
     {
@@ -168,4 +218,22 @@ namespace TriPeaks
             throw new NotSupportedException();
         }
     }
+
+    internal class WinLossConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            int nValue = Int32.Parse(value.ToString());
+            return String.Format("{0}${1}", (nValue < 0) ? "Lost -" : "Won ", Math.Abs(nValue));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    #endregion
+
 }
