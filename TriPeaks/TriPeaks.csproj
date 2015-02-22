@@ -64,8 +64,6 @@
       <DependentUpon>BackSelectDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="StatisticsPane.xaml.cs">
-      <DependentUpon>StatisticsPane.xaml</DependentUpon>
     </Compile>
     <Compile Include="WinAPI.cs" />
     <Page Include="AboutDialog.xaml">
@@ -100,19 +98,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PlayerNameDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StatisticsPane.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerNameDialog.xaml.cs">
-      <DependentUpon>PlayerNameDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

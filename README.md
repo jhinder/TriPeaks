@@ -1,8 +1,8 @@
 ﻿# TriPeaks
-This program is a clone of the TriPeaks from the Microsoft Entertainment pack for Windows 3.1, written in C# .NET and WPF.  
+TriPeaks is a modern clone of the TriPeaks game from the Microsoft Entertainment pack for Windows 3.1, written in C# .NET and WPF.  
 The original programs are 16 bit programs and don't run under newer Windows versions or on any 64 bit Windows versions.
 
-It strives to be as close to the original program as possible. The only exception are the game graphics and assets of course, as they are still copyrighted by Microsoft.
+Originally the game was supposed to be as close to the orginal program as possible, but now the goal is to modernise the game while keeping the rules of the original.
 
 ## Requirements
 To run and compile the program, .NET 4.5 is required.  
