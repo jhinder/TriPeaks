@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:TriPeaks"
         x:Name="GameWindow"
         Title="TriPeaks"
-        Height="480" Width="640"
+        Height="460" Width="720"
         MinHeight="{Binding ElementName=GameWindow, Path=Height, Mode=OneTime}"
         MinWidth="{Binding ElementName=GameWindow, Path=Width, Mode=OneTime}"
         Background="{StaticResource GreenFeltBackground}"
@@ -55,7 +55,6 @@
                 <MenuItem Header="_About TriPeaks&#8230;" Command="{StaticResource ShowInfoCommand}" />
             </MenuItem>
 
-
         </Menu>
 
         <Canvas>
@@ -66,11 +65,19 @@
                 </Style>
             </Canvas.Resources>
 
-            <Canvas DataContext="{Binding Path=CardManager}">
-                <local:CardRenderer DataContext="{Binding Path=CurrentCard, Mode=OneWay}" Canvas.Left="117" Canvas.Top="232" />
+            <Canvas DataContext="{Binding Path=CardManager}" Margin="8">
+                <Canvas.Resources>
+                    <Style TargetType="local:CardRenderer">
+                        <Setter Property="Height" Value="86" />
+                        <Setter Property="Width" Value="64" />
+                        <Setter Property="Margin" Value="2" />
+                    </Style>
+                </Canvas.Resources>
 
-                <Button Height="86" Width="64"
-                        Canvas.Left="215" Canvas.Top="232"
+                <local:CardRenderer DataContext="{Binding Path=CurrentCard, Mode=OneWay}" Canvas.Left="128" Canvas.Top="260"  />
+
+                <Button Canvas.Left="224" Canvas.Top="260"
+                        Height="86" Width="64"
                         Command="{StaticResource StackDrawCommand}">
                     <Button.Template>
                         <ControlTemplate>
@@ -78,15 +85,48 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
-                
-                <!-- does not yet change with changed back immediately -->
+
+                <!-- 1st row: 3 cards (3 x 1) -->
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[0]}" Canvas.Top="0" Canvas.Left="96" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[1]}" Canvas.Top="0" Canvas.Left="288" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[2]}" Canvas.Top="0" Canvas.Left="480" />
+
+                <!-- 2nd row: 6 cards (3 x 2) -->
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[3]}" Canvas.Top="43" Canvas.Left="64" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[4]}" Canvas.Top="43" Canvas.Left="128" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[5]}" Canvas.Top="43" Canvas.Left="256" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[6]}" Canvas.Top="43" Canvas.Left="320" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[7]}" Canvas.Top="43" Canvas.Left="448" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[8]}" Canvas.Top="43" Canvas.Left="512"/>
+
+                <!-- 3rd row: 9 cards (3 x 3) -->
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[9]}" Canvas.Top="86" Canvas.Left="32" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[10]}" Canvas.Top="86" Canvas.Left="96" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[11]}" Canvas.Top="86" Canvas.Left="160" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[12]}" Canvas.Top="86" Canvas.Left="224" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[13]}" Canvas.Top="86" Canvas.Left="288" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[14]}" Canvas.Top="86" Canvas.Left="352" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[15]}" Canvas.Top="86" Canvas.Left="416" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[16]}" Canvas.Top="86" Canvas.Left="480" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[17]}" Canvas.Top="86" Canvas.Left="544" />
+
+                <!-- 4th row: 10 cards -->
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[18]}" Canvas.Top="128" Canvas.Left="0" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[19]}" Canvas.Top="128" Canvas.Left="64" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[20]}" Canvas.Top="128" Canvas.Left="128" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[21]}" Canvas.Top="128" Canvas.Left="192" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[22]}" Canvas.Top="128" Canvas.Left="256" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[23]}" Canvas.Top="128" Canvas.Left="320" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[24]}" Canvas.Top="128" Canvas.Left="384" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[25]}" Canvas.Top="128" Canvas.Left="448" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[26]}" Canvas.Top="128" Canvas.Left="512" />
+                <local:CardRenderer DataContext="{Binding Path=PyramidCards[27]}" Canvas.Top="128" Canvas.Left="576" />
+
             </Canvas>
 
-
-            <TextBlock Text="{Binding Path=Score, Converter={StaticResource WinLossConverter}, FallbackValue='Won $0'}" Canvas.Left="10" Canvas.Top="212" />
-            <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="255" />
-            <TextBlock Text="{Binding Path=AdditionalString, FallbackValue='Additional string'}" Canvas.Left="10" Canvas.Top="290" />
+            <TextBlock Text="{Binding Path=Score, Converter={StaticResource WinLossConverter}, FallbackValue='Won $0'}" Canvas.Left="10" Canvas.Top="314" />
+            <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="346" />
+            <TextBlock Text="{Binding Path=AdditionalString}" Canvas.Left="10" Canvas.Top="378" />
         </Canvas>
 
         <!-- Debug panel -->

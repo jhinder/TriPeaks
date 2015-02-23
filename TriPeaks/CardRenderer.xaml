@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TriPeaks"
              Height="86" Width="64"
-             Background="White">
+             Background="{StaticResource GreenFeltBackground}"
+             BorderBrush="Black" BorderThickness="0.5">
     <UserControl.DataContext>
         <local:Card />
     </UserControl.DataContext>
@@ -14,13 +15,14 @@
         <local:SuitToColourConverter x:Key="ColourConverter" />
     </UserControl.Resources>
     
-    <Grid>
+    <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="FontSize" Value="8" />
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
+            <local:CardBackProvider x:Key="BackProvider" />
         </Grid.Resources>
         
         <Grid.ColumnDefinitions>
@@ -36,9 +38,7 @@
             <RowDefinition Height="0.1*" />
             <RowDefinition Height="0.1*" />
         </Grid.RowDefinitions>
-        
-        <!-- TODO Image overlay for hidden cards -->
-        
+
         <TextBlock Grid.Row="0" Grid.Column="0"
                    Foreground="{Binding Path=Colour, Converter={StaticResource ColourConverter}}"
                    Text="{Binding Path=Value, Converter={StaticResource NumberConverter}}" />
@@ -65,6 +65,11 @@
 
         <Image Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" />
         <Image Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" />
-        
+
+        <!-- The overlay image must be down here, otherwise the suit will be overlaid - spoilers. -->
+        <Image Source="{Binding Path=Hidden, Converter={StaticResource BackProvider}}"
+               Grid.Column="0" Grid.Row="0"
+               Grid.ColumnSpan="3" Grid.RowSpan="6" />
+
     </Grid>
 </UserControl>

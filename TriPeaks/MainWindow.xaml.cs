@@ -302,6 +302,11 @@ namespace TriPeaks
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            // Short circuiting is essential here.
+            if (value != null
+                && !(value is CardHolder) // for the main peaks where we have no binding path
+                && (bool)value == false)
+                return null; // hidden -> false? No image overlay
             int back = Properties.Settings.Default.Back;
             if (back < 0 || back > 7)
                 back = 0;
