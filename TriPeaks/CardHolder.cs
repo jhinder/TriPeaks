@@ -128,7 +128,8 @@ namespace TriPeaks
                 return false;
 
             CurrentCard = BottomStack.Pop();
-            RaisePropertyChanged("BottomCard");
+            CurrentCard.Hidden = false;
+            RaisePropertyChanged("CurrentCard");
             RaisePropertyChanged("StackCount");
             return true;
         }

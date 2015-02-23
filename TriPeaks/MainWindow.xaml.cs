@@ -26,7 +26,6 @@ namespace TriPeaks
     {
 
         private TriPeaksViewModel viewModel;
-        internal static bool GameInSession { get; private set; }
 
         public MainWindow()
         {
@@ -69,7 +68,7 @@ namespace TriPeaks
 
         private void Redeal()
         {
-            if (GameInSession) {
+            if (viewModel.GameInProgress) {
                 // Dealing while game in session = $140 penalty
                 var mres = MessageBox.Show("You are trying to deal with cards left in play for a penalty of 140 dollars. "
                     + "Do you really want to redeal?",
@@ -80,16 +79,16 @@ namespace TriPeaks
                 if (mres == MessageBoxResult.No)
                     return;
                 else
-                    viewModel.Losses += 140;
+                    viewModel.Reset();
             }
-            GameInSession = true;
+            viewModel.StartGame();
 
             viewModel.CardManager = new CardHolder();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (GameInSession) {
+            if (viewModel.GameInProgress) {
                 var mres = MessageBox.Show("You are exiting with cards left in play for a penalty of 140 dollars."
                     + " - OUCH!! Do you really want to quit?",
                     "Exiting TiPreaks",
@@ -110,22 +109,6 @@ namespace TriPeaks
         }
 
         #region Debug functions
-
-        private void btnSetString(object sender, RoutedEventArgs e)
-        {
-            viewModel.AdditionalString = "This is a string!";
-        }
-
-        private void btnDrawFromStack(object sender, RoutedEventArgs e)
-        {
-            if (viewModel.CardManager == null)
-                return; // will not happen once everything is in place
-            bool moveSuccess = viewModel.CardManager.TryMoveStackToCurrent();
-            if (moveSuccess)
-                viewModel.Losses += 5;
-            else
-                MessageBox.Show("No cards left");
-        }
 
         private void btnPeak1(object sender, RoutedEventArgs e)
         {
@@ -148,6 +131,22 @@ namespace TriPeaks
         }
 
         #endregion
+
+        private void CanDrawFromStack(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (viewModel != null
+                            && viewModel.GameInProgress
+                            && viewModel.CardManager.StackCount != 0);
+        }
+
+        private void StackDrawExecute(object sender, ExecutedRoutedEventArgs e)
+        {
+            bool moveSuccess = viewModel.CardManager.TryMoveStackToCurrent();
+            if (moveSuccess)
+                viewModel.Losses += 5;
+            else
+                viewModel.Endgame();
+        }
 
     }
 
@@ -189,6 +188,22 @@ namespace TriPeaks
             }
         }
 
+        private int _streak;
+        public int Streak
+        {
+            get { return _streak; }
+            set
+            {
+                _streak = value;
+                RaisePropertyChanged("Streak");
+            }
+        }
+
+        public int StreakWins
+        {
+            get { return (_streak * (_streak + 1) / 2); }
+        }
+
         public int Score
         {
             get { return Wins + (Losses * (-1)); }
@@ -203,6 +218,34 @@ namespace TriPeaks
                 _cardHolder = value;
                 RaisePropertyChanged("CardManager");
             }
+        }
+
+        public bool GameInProgress { get; set; }
+
+        /// <summary>
+        /// Finishes a game.
+        /// </summary>
+        public void Endgame()
+        {
+            GameInProgress = false;
+        }
+
+        public void Reset()
+        {
+            StartGame();
+        }
+
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        public void StartGame()
+        {
+            if (GameInProgress)
+                Losses += 140;
+
+            reachedPeaks = 0;
+            CardManager = new CardHolder();
+            GameInProgress = true;
         }
 
         private string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
@@ -237,31 +280,6 @@ namespace TriPeaks
 
     #region Converters
 
-    internal class BoolToVisibilityConverter : MarkupExtension, IValueConverter
-    {
-
-        private static BoolToVisibilityConverter _converter;
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
- 	        if (_converter == null)
-                _converter = new BoolToVisibilityConverter();
-            return _converter;
-        }
-
-        public BoolToVisibilityConverter() { }
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-
     internal class WinLossConverter : IValueConverter
     {
 
@@ -278,5 +296,22 @@ namespace TriPeaks
     }
 
     #endregion
+
+    public class CardBackProvider : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            int back = Properties.Settings.Default.Back;
+            if (back < 0 || back > 7)
+                back = 0;
+            return String.Format("/Resources/backs/back_{0}.png", (back + 1));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
 }

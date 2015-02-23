@@ -9,34 +9,37 @@
         MinWidth="{Binding ElementName=GameWindow, Path=Width, Mode=OneTime}"
         Background="{StaticResource GreenFeltBackground}"
         Closing="Window_Closing">
-    
+
     <Window.DataContext>
         <local:TriPeaksViewModel />
     </Window.DataContext>
-    
+
     <Window.Resources>
-        <RoutedUICommand x:Key="DealCommand" Text="Deal" />
-        <RoutedUICommand x:Key="ChangeDeckCommand" Text="Change Deck" />
-        <RoutedUICommand x:Key="ShowHallOfFameCommand" Text="Hall of Fame" />
-        <RoutedUICommand x:Key="ShowInfoCommand" Text="About" />
+        <RoutedUICommand x:Key="DealCommand" />
+        <RoutedUICommand x:Key="ChangeDeckCommand" />
+        <RoutedUICommand x:Key="ShowHallOfFameCommand" />
+        <RoutedUICommand x:Key="ShowInfoCommand" />
+        <RoutedUICommand x:Key="StackDrawCommand" />
 
         <local:WinLossConverter x:Key="WinLossConverter" />
+        <local:CardBackProvider x:Key="BackProvider" />
     </Window.Resources>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource DealCommand}" Executed="DealCommandExecuted" />
         <CommandBinding Command="{StaticResource ChangeDeckCommand}" Executed="ChangeDeckExecuted" />
         <CommandBinding Command="{StaticResource ShowHallOfFameCommand}" Executed="ShowHallOfFameExecuted" />
         <CommandBinding Command="{StaticResource ShowInfoCommand}" Executed="ShowInfoExecuted" />
+        <CommandBinding Command="{StaticResource StackDrawCommand}" CanExecute="CanDrawFromStack" Executed="StackDrawExecute" />
         <CommandBinding Command="ApplicationCommands.Close" Executed="WindowCloseExecuted" />
     </Window.CommandBindings>
-    
+
     <Window.InputBindings>
         <KeyBinding Command="{StaticResource DealCommand}" Key="F2" />
     </Window.InputBindings>
-    
+
     <DockPanel LastChildFill="False">
-        
+
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Game" >
                 <MenuItem Header="_Deal" Command="{StaticResource DealCommand}" />
@@ -47,7 +50,7 @@
                 <MenuItem Header="_Deck&#8230;" Command="{StaticResource ChangeDeckCommand}" />
                 <MenuItem Header="_Highscores&#8230;" Command="{StaticResource ShowHallOfFameCommand}" />
             </MenuItem>
-            
+
             <MenuItem Header="_Help">
                 <MenuItem Header="_About TriPeaks&#8230;" Command="{StaticResource ShowInfoCommand}" />
             </MenuItem>
@@ -62,12 +65,25 @@
                     <Setter Property="FontWeight" Value="SemiBold" />
                 </Style>
             </Canvas.Resources>
-            
+
             <Canvas DataContext="{Binding Path=CardManager}">
-                <local:CardRenderer DataContext="{Binding Path=CurrentCard, Mode=OneWay}" />
+                <local:CardRenderer DataContext="{Binding Path=CurrentCard, Mode=OneWay}" Canvas.Left="117" Canvas.Top="232" />
+
+                <Button Height="86" Width="64"
+                        Canvas.Left="215" Canvas.Top="232"
+                        Command="{StaticResource StackDrawCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="{Binding Converter={StaticResource BackProvider}}" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+                
+                <!-- does not yet change with changed back immediately -->
             </Canvas>
-            
-            
+
+
             <TextBlock Text="{Binding Path=Score, Converter={StaticResource WinLossConverter}, FallbackValue='Won $0'}" Canvas.Left="10" Canvas.Top="212" />
             <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="255" />
             <TextBlock Text="{Binding Path=AdditionalString, FallbackValue='Additional string'}" Canvas.Left="10" Canvas.Top="290" />
@@ -75,13 +91,11 @@
 
         <!-- Debug panel -->
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <Button Click="btnSetString">Set add. string</Button>
-            <Button Click="btnDrawFromStack">Draw from stack</Button>
             <Button Click="btnPeak1">1st Peak</Button>
             <Button Click="btnPeak2">2nd Peak</Button>
             <Button Click="btnPeak3">3rd Peak</Button>
             <Button Click="btnResetPeaks">Reset Peaks</Button>
         </StackPanel>
-        
+
     </DockPanel>
 </Window>
