@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +12,23 @@ namespace TriPeaks
     /// <summary>
     /// Defines a playing card.
     /// </summary>
-    class Card
+    class Card : INotifyPropertyChanged
     {
 
+        private bool _hidden;
         /// <summary>
         /// Determines if a card is hidden, i.e. its back is showing.
         /// </summary>
-        public bool Hidden { get; set; }
+        public bool Hidden
+        {
+            get { return _hidden; }
+            set
+            {
+                _hidden = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         /// <summary>
         /// The colour of the card, also known as its suit.
@@ -27,6 +39,25 @@ namespace TriPeaks
         /// The value of the card.
         /// </summary>
         public CardValues Value { get; set; }
+
+        private bool _played;
+        /// <summary>
+        /// Gets or sets if this card has already been played.
+        /// </summary>
+        /// <remarks>
+        /// This property is only used for the main playing area, i.e. the three peaks.
+        /// It is ignored everywhere else.
+        /// </remarks>
+        public bool Played
+        {
+            get { return _played; }
+            set
+            {
+                _played = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         /// <summary>
         /// Creates a new card.
@@ -39,10 +70,19 @@ namespace TriPeaks
             this.Colour = colour;
             this.Value = value;
             this.Hidden = hidden;
+            this.Played = false;
         }
 
         public Card() { }
 
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     static class CardExtensions

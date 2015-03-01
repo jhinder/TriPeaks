@@ -128,6 +128,36 @@ namespace TriPeaks
         }
 
         /// <summary>
+        /// Looks for any cards that have been opened with the last move and turns them around.
+        /// </summary>
+        public void RecalculateCardsTurned()
+        {
+            int n;
+            // Step 1: cards 1 to 3 (index 0-2)
+            for (n = 0; n < 3; n++)
+                PyramidCards[n].Hidden = BothCardsPlayed(2 * (n + 1), 2 * (n + 1) + 1);
+
+            // The 2nd row is not very nice because there is no single function, compared to rows 1 & 3.
+            // Maybe we find one some day.
+            PyramidCards[3].Hidden = BothCardsPlayed(9, 10);
+            PyramidCards[4].Hidden = BothCardsPlayed(10, 11);
+            PyramidCards[5].Hidden = BothCardsPlayed(12, 13);
+            PyramidCards[6].Hidden = BothCardsPlayed(13, 14);
+            PyramidCards[7].Hidden = BothCardsPlayed(15, 16);
+            PyramidCards[8].Hidden = BothCardsPlayed(16, 17);
+
+            // Step 3: cards 10 to 18 (index 9 to 17)
+            for (n = 9; n < 18; n++)
+                PyramidCards[n].Hidden = BothCardsPlayed((n + 9), (n + 10));
+
+        }
+
+        private bool BothCardsPlayed(int index1, int index2)
+        {
+            return !(PyramidCards[index1].Played && PyramidCards[index2].Played);
+        }
+
+        /// <summary>
         /// Moves the top card of the bottom stack to the current playing card.
         /// </summary>
         /// <returns>true if a move was possible and successful, otherwise false.</returns>
@@ -140,31 +170,6 @@ namespace TriPeaks
             CurrentCard.Hidden = false;
             RaisePropertyChanged("CurrentCard");
             RaisePropertyChanged("StackCount");
-            return true;
-        }
-
-        /// <summary>
-        /// Tries to move a card from the pyramids to the current card.
-        /// </summary>
-        /// <param name="index">The index of the card within the list.</param>
-        /// <returns>Returns if the move was successful or allowed.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Is thrown when the index is not between 0 and 27.</exception>
-        public bool MovePyramidCardToCurrent(int index)
-        {
-            if (index < 0 || index >= 27)
-                throw new ArgumentOutOfRangeException("Pyramid index must be between 0 and 27");
-
-            var peekCard = PyramidCards.ElementAt(index);
-            if (peekCard.Hidden)
-                return false;
-            if (!CurrentCard.Value.IsAdjacentTo(peekCard.Value))
-                return false;
-
-            // It's okay to move the card
-            CurrentCard = peekCard;
-
-            //PyramidCards.ElementAt(index)
-            // TODO hide from view
             return true;
         }
 

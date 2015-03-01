@@ -31,6 +31,7 @@ namespace TriPeaks
             if (CardClicked != null)
             {
                 Card c = (this.DataContext as Card);
+                c.Played = true;
                 CardEventArgs evArgs = new CardEventArgs(c);
                 CardClicked(this, evArgs);
             }

@@ -124,6 +124,7 @@ namespace TriPeaks
                 viewModel.CardManager.CurrentCard = e.Card;
                 viewModel.Streak++;
                 viewModel.Wins += viewModel.Streak; // 1 card = $1, 2 cards = $2, ...
+                viewModel.CardManager.RecalculateCardsTurned();
             }
         }
 

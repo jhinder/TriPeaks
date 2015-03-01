@@ -14,6 +14,7 @@
         <local:ColourToSuitConverter x:Key="SuitConverter" />
         <local:CardToNumberConverter x:Key="NumberConverter" />
         <local:SuitToColourConverter x:Key="ColourConverter" />
+        <!--<local:BoolToVisibilityConverter x:Key="BoolToVisConverter" />-->
     </UserControl.Resources>
     
     <Grid Background="White">
