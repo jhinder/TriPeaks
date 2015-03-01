@@ -39,10 +39,19 @@ namespace TriPeaks
             }
         }
 
+        private Card _currentCard;
         /// <summary>
         /// The current card, on top of which all moves are made.
         /// </summary>
-        public Card CurrentCard { get; set; }
+        public Card CurrentCard {
+            get { return _currentCard; }
+            set
+            {
+                _currentCard = value;
+                _currentCard.Hidden = false;
+                RaisePropertyChanged("CurrentCard");
+            }
+        }
 
         /// <summary>
         /// A list of all cards in use by the "pyramids".

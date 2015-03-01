@@ -121,14 +121,14 @@
                     <!-- 4th row: 10 cards -->
                     <local:CardRenderer DataContext="{Binding Path=PyramidCards[18]}" Canvas.Top="128" Canvas.Left="0" CardClicked="PeakCardClicked" />
                     <local:CardRenderer DataContext="{Binding Path=PyramidCards[19]}" Canvas.Top="128" Canvas.Left="64" CardClicked="PeakCardClicked" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[20]}" Canvas.Top="128" Canvas.Left="128" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[21]}" Canvas.Top="128" Canvas.Left="192" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[22]}" Canvas.Top="128" Canvas.Left="256" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[23]}" Canvas.Top="128" Canvas.Left="320" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[24]}" Canvas.Top="128" Canvas.Left="384" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[25]}" Canvas.Top="128" Canvas.Left="448" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[26]}" Canvas.Top="128" Canvas.Left="512" />
-                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[27]}" Canvas.Top="128" Canvas.Left="576" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[20]}" Canvas.Top="128" Canvas.Left="128" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[21]}" Canvas.Top="128" Canvas.Left="192" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[22]}" Canvas.Top="128" Canvas.Left="256" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[23]}" Canvas.Top="128" Canvas.Left="320" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[24]}" Canvas.Top="128" Canvas.Left="384" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[25]}" Canvas.Top="128" Canvas.Left="448" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[26]}" Canvas.Top="128" Canvas.Left="512" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[27]}" Canvas.Top="128" Canvas.Left="576" CardClicked="PeakCardClicked" />
 
                 </Canvas>
 
@@ -138,14 +138,6 @@
             <TextBlock Text="{Binding Path=CardManager.StackCount, StringFormat='Cards left = {0}', FallbackValue='Cards left = 0'}" Canvas.Left="10" Canvas.Top="346" />
             <TextBlock Text="{Binding Path=AdditionalString}" Canvas.Left="10" Canvas.Top="378" />
         </Canvas>
-
-        <!-- Debug panel -->
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <Button Click="btnPeak1">1st Peak</Button>
-            <Button Click="btnPeak2">2nd Peak</Button>
-            <Button Click="btnPeak3">3rd Peak</Button>
-            <Button Click="btnResetPeaks">Reset Peaks</Button>
-        </StackPanel>
-
+        
     </DockPanel>
 </Window>

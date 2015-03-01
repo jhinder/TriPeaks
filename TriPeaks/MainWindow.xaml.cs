@@ -96,30 +96,6 @@ namespace TriPeaks
             this.Close();
         }
 
-        #region Debug functions
-
-        private void btnPeak1(object sender, RoutedEventArgs e)
-        {
-            viewModel.ReachedPeak(1);
-        }
-
-        private void btnPeak2(object sender, RoutedEventArgs e)
-        {
-            viewModel.ReachedPeak(2);
-        }
-
-        private void btnPeak3(object sender, RoutedEventArgs e)
-        {
-            viewModel.ReachedPeak(3);
-        }
-
-        private void btnResetPeaks(object sender, RoutedEventArgs e)
-        {
-            viewModel.ReachedPeak(0);
-        }
-
-        #endregion
-
         private void CanDrawFromStack(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = (viewModel != null
@@ -130,15 +106,25 @@ namespace TriPeaks
         private void StackDrawExecute(object sender, ExecutedRoutedEventArgs e)
         {
             bool moveSuccess = viewModel.CardManager.TryMoveStackToCurrent();
-            if (moveSuccess)
+            if (moveSuccess) {
                 viewModel.Losses += 5;
-            else
+                viewModel.Streak = 0;
+                viewModel.AdditionalString = String.Empty;
+            } else {
                 viewModel.Endgame();
+            }
         }
 
         private void PeakCardClicked(object sender, CardEventArgs e)
         {
-            MessageBox.Show(String.Format("{0}/{1}", e.Colour, e.Value));
+            if (viewModel.CardManager.CurrentCard.Value.IsAdjacentTo(e.Card.Value))
+            {
+                // The cards match!
+                (sender as CardRenderer).Visibility = Visibility.Collapsed;
+                viewModel.CardManager.CurrentCard = e.Card;
+                viewModel.Streak++;
+                viewModel.Wins += viewModel.Streak; // 1 card = $1, 2 cards = $2, ...
+            }
         }
 
     }

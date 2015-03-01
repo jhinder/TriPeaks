@@ -24,12 +24,15 @@ namespace TriPeaks
 
         private void CardMouseDownEvent(object sender, MouseButtonEventArgs e)
         {
+            if ((this.DataContext as Card).Hidden)
+                return;
+
             // Notify all event subscribers
             if (CardClicked != null)
             {
                 Card c = (this.DataContext as Card);
-                CardEventArgs evArgs = new CardEventArgs(c.Colour, c.Value);
-                CardClicked(sender, evArgs);
+                CardEventArgs evArgs = new CardEventArgs(c);
+                CardClicked(this, evArgs);
             }
                 
         }
@@ -124,13 +127,11 @@ namespace TriPeaks
     internal class CardEventArgs : RoutedEventArgs
     {
 
-        public CardColours Colour { get; set; }
-        public CardValues Value { get; set; }
+        public Card Card { get; set; }
 
-        public CardEventArgs(CardColours colour, CardValues value)
+        public CardEventArgs(Card card)
         {
-            this.Colour = colour;
-            this.Value = value;
+            this.Card = card;
         }
 
     }
