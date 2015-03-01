@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TriPeaks"
              Height="86" Width="64"
              Background="{StaticResource GreenFeltBackground}"
-             BorderBrush="Black" BorderThickness="0.5">
+             BorderBrush="Black" BorderThickness="0.5"
+             MouseDown="CardMouseDownEvent">
     <UserControl.DataContext>
         <local:Card />
     </UserControl.DataContext>
@@ -18,9 +19,12 @@
     <Grid Background="White">
         <Grid.Resources>
             <Style TargetType="TextBlock">
-                <Setter Property="FontSize" Value="8" />
-                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{Binding Path=Colour, Converter={StaticResource ColourConverter}, Mode=OneWay}" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontFamily" Value="Courier" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Text" Value="{Binding Path=Value, Converter={StaticResource NumberConverter}}" />
             </Style>
             <local:CardBackProvider x:Key="BackProvider" />
         </Grid.Resources>
@@ -31,25 +35,21 @@
             <ColumnDefinition Width="0.15*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*" />
             <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.25*" />
+            <RowDefinition Height="0.25*" />
             <RowDefinition Height="0.1*" />
-            <RowDefinition Height="0.3*" />
-            <RowDefinition Height="0.3*" />
-            <RowDefinition Height="0.1*" />
-            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="0.15*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0"
-                   Foreground="{Binding Path=Colour, Converter={StaticResource ColourConverter}}"
-                   Text="{Binding Path=Value, Converter={StaticResource NumberConverter}}" />
+        <TextBlock Grid.Row="0" Grid.Column="0" />
         <Image Grid.Row="1" Grid.Column="0"
                Width="10" Height="9"
-               Source="{Binding Path=Colour, Converter={StaticResource SuitConverter}}" />
+               Source="{Binding Path=Colour, Converter={StaticResource SuitConverter}, Mode=OneWay}" />
 
         <TextBlock Grid.Row="5" Grid.Column="2"
-                   RenderTransformOrigin="0.5, 0.5"
-                   Foreground="{Binding Path=Colour, Converter={StaticResource ColourConverter}}"
-                   Text="{Binding Path=Value, Converter={StaticResource NumberConverter}}">
+                   RenderTransformOrigin="0.5, 0.5">
            <TextBlock.RenderTransform>
                 <RotateTransform Angle="180" />
             </TextBlock.RenderTransform>

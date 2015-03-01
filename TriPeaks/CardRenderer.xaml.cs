@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TriPeaks
 {
@@ -20,11 +13,29 @@ namespace TriPeaks
     /// </summary>
     public partial class CardRenderer : UserControl
     {
+
+        internal delegate void CardClickHandler(object sender, CardEventArgs e);
+        internal event CardClickHandler CardClicked;
+
         public CardRenderer()
         {
             InitializeComponent();
         }
+
+        private void CardMouseDownEvent(object sender, MouseButtonEventArgs e)
+        {
+            // Notify all event subscribers
+            if (CardClicked != null)
+            {
+                Card c = (this.DataContext as Card);
+                CardEventArgs evArgs = new CardEventArgs(c.Colour, c.Value);
+                CardClicked(sender, evArgs);
+            }
+                
+        }
     }
+
+    #region Converter
 
     internal class ColourToSuitConverter : IValueConverter
     {
@@ -105,5 +116,25 @@ namespace TriPeaks
             throw new NotImplementedException();
         }
     }
+
+    #endregion
+
+    #region CardEventArgs
+
+    internal class CardEventArgs : RoutedEventArgs
+    {
+
+        public CardColours Colour { get; set; }
+        public CardValues Value { get; set; }
+
+        public CardEventArgs(CardColours colour, CardValues value)
+        {
+            this.Colour = colour;
+            this.Value = value;
+        }
+
+    }
+
+    #endregion
 
 }

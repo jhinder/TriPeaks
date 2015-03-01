@@ -86,41 +86,51 @@
                     </Button.Template>
                 </Button>
 
-                <!-- 1st row: 3 cards (3 x 1) -->
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[0]}" Canvas.Top="0" Canvas.Left="96" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[1]}" Canvas.Top="0" Canvas.Left="288" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[2]}" Canvas.Top="0" Canvas.Left="480" />
+                <Canvas>
+                    <Canvas.Resources>
+                        <!--<Style TargetType="local:CardRenderer">
+                            <EventSetter Handler="PeakCardClicked" Event="CardClicked" />
+                        </Style>-->
+                        <!-- Eventually we have to find a way to set CardClicked for all CardRenderers. -->
+                    </Canvas.Resources>
+                
+                    <!-- 1st row: 3 cards (3 x 1) -->
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[0]}" Canvas.Top="0" Canvas.Left="96" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[1]}" Canvas.Top="0" Canvas.Left="288" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[2]}" Canvas.Top="0" Canvas.Left="480" />
 
-                <!-- 2nd row: 6 cards (3 x 2) -->
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[3]}" Canvas.Top="43" Canvas.Left="64" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[4]}" Canvas.Top="43" Canvas.Left="128" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[5]}" Canvas.Top="43" Canvas.Left="256" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[6]}" Canvas.Top="43" Canvas.Left="320" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[7]}" Canvas.Top="43" Canvas.Left="448" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[8]}" Canvas.Top="43" Canvas.Left="512"/>
+                    <!-- 2nd row: 6 cards (3 x 2) -->
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[3]}" Canvas.Top="43" Canvas.Left="64" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[4]}" Canvas.Top="43" Canvas.Left="128" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[5]}" Canvas.Top="43" Canvas.Left="256" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[6]}" Canvas.Top="43" Canvas.Left="320" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[7]}" Canvas.Top="43" Canvas.Left="448" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[8]}" Canvas.Top="43" Canvas.Left="512"/>
 
-                <!-- 3rd row: 9 cards (3 x 3) -->
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[9]}" Canvas.Top="86" Canvas.Left="32" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[10]}" Canvas.Top="86" Canvas.Left="96" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[11]}" Canvas.Top="86" Canvas.Left="160" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[12]}" Canvas.Top="86" Canvas.Left="224" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[13]}" Canvas.Top="86" Canvas.Left="288" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[14]}" Canvas.Top="86" Canvas.Left="352" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[15]}" Canvas.Top="86" Canvas.Left="416" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[16]}" Canvas.Top="86" Canvas.Left="480" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[17]}" Canvas.Top="86" Canvas.Left="544" />
+                    <!-- 3rd row: 9 cards (3 x 3) -->
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[9]}" Canvas.Top="86" Canvas.Left="32" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[10]}" Canvas.Top="86" Canvas.Left="96" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[11]}" Canvas.Top="86" Canvas.Left="160" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[12]}" Canvas.Top="86" Canvas.Left="224" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[13]}" Canvas.Top="86" Canvas.Left="288" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[14]}" Canvas.Top="86" Canvas.Left="352" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[15]}" Canvas.Top="86" Canvas.Left="416" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[16]}" Canvas.Top="86" Canvas.Left="480" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[17]}" Canvas.Top="86" Canvas.Left="544" />
 
-                <!-- 4th row: 10 cards -->
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[18]}" Canvas.Top="128" Canvas.Left="0" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[19]}" Canvas.Top="128" Canvas.Left="64" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[20]}" Canvas.Top="128" Canvas.Left="128" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[21]}" Canvas.Top="128" Canvas.Left="192" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[22]}" Canvas.Top="128" Canvas.Left="256" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[23]}" Canvas.Top="128" Canvas.Left="320" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[24]}" Canvas.Top="128" Canvas.Left="384" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[25]}" Canvas.Top="128" Canvas.Left="448" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[26]}" Canvas.Top="128" Canvas.Left="512" />
-                <local:CardRenderer DataContext="{Binding Path=PyramidCards[27]}" Canvas.Top="128" Canvas.Left="576" />
+                    <!-- 4th row: 10 cards -->
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[18]}" Canvas.Top="128" Canvas.Left="0" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[19]}" Canvas.Top="128" Canvas.Left="64" CardClicked="PeakCardClicked" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[20]}" Canvas.Top="128" Canvas.Left="128" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[21]}" Canvas.Top="128" Canvas.Left="192" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[22]}" Canvas.Top="128" Canvas.Left="256" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[23]}" Canvas.Top="128" Canvas.Left="320" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[24]}" Canvas.Top="128" Canvas.Left="384" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[25]}" Canvas.Top="128" Canvas.Left="448" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[26]}" Canvas.Top="128" Canvas.Left="512" />
+                    <local:CardRenderer DataContext="{Binding Path=PyramidCards[27]}" Canvas.Top="128" Canvas.Left="576" />
+
+                </Canvas>
 
             </Canvas>
 

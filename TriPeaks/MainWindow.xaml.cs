@@ -1,21 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TriPeaks
 {
@@ -146,6 +134,11 @@ namespace TriPeaks
                 viewModel.Losses += 5;
             else
                 viewModel.Endgame();
+        }
+
+        private void PeakCardClicked(object sender, CardEventArgs e)
+        {
+            MessageBox.Show(String.Format("{0}/{1}", e.Colour, e.Value));
         }
 
     }
