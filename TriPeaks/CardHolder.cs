@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriPeaks
 {
@@ -33,10 +31,7 @@ namespace TriPeaks
         /// </summary>
         public int StackCount
         {
-            get
-            {
-                return BottomStack.Count;
-            }
+            get { return BottomStack.Count; }
         }
 
         private Card _currentCard;

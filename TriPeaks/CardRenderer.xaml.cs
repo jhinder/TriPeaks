@@ -24,18 +24,13 @@ namespace TriPeaks
 
         private void CardMouseDownEvent(object sender, MouseButtonEventArgs e)
         {
-            if ((this.DataContext as Card).Hidden)
+            var card = (DataContext as Card);
+            if (card == null || card.Hidden || CardClicked == null)
                 return;
-
-            // Notify all event subscribers
-            if (CardClicked != null)
-            {
-                Card c = (this.DataContext as Card);
-                c.Played = true;
-                CardEventArgs evArgs = new CardEventArgs(c);
-                CardClicked(this, evArgs);
-            }
-                
+            
+            card.Played = true;
+            CardEventArgs evArgs = new CardEventArgs(card);
+            CardClicked(this, evArgs);
         }
     }
 
@@ -132,7 +127,7 @@ namespace TriPeaks
 
         public CardEventArgs(Card card)
         {
-            this.Card = card;
+            Card = card;
         }
 
     }

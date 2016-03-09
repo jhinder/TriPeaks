@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 
 namespace TriPeaks
 {
@@ -15,9 +13,9 @@ namespace TriPeaks
             InitializeComponent();
         }
 
-        private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void CloseExecuted(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Window_SourceInitialized(object sender, System.EventArgs e)
@@ -27,12 +25,10 @@ namespace TriPeaks
 
         private async void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            await Dispatcher.InvokeAsync((Action)(() =>
-            {
+            await Dispatcher.InvokeAsync(() => {
                 Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
                 e.Handled = true;
-            }));
-            
+            });   
         }
     }
 }

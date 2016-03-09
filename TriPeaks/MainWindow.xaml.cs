@@ -18,7 +18,7 @@ namespace TriPeaks
         public MainWindow()
         {
             InitializeComponent();
-            viewModel = this.DataContext as TriPeaksViewModel;
+            viewModel = DataContext as TriPeaksViewModel;
         }
 
         #region Commands
@@ -46,10 +46,9 @@ namespace TriPeaks
         private async Task AsyncDialog<W>()
             where W : Window, new()
         {
-            await Dispatcher.InvokeAsync((Action)(() =>
-            {
+            await Dispatcher.InvokeAsync(() => {
                 (new W()).ShowDialog();
-            }));
+            });
         }
 
         #endregion
@@ -93,7 +92,7 @@ namespace TriPeaks
 
         private void WindowCloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void CanDrawFromStack(object sender, CanExecuteRoutedEventArgs e)
@@ -109,7 +108,7 @@ namespace TriPeaks
             if (moveSuccess) {
                 viewModel.Losses += 5;
                 viewModel.Streak = 0;
-                viewModel.AdditionalString = String.Empty;
+                viewModel.AdditionalString = string.Empty;
             } else {
                 viewModel.Endgame();
             }
@@ -117,15 +116,14 @@ namespace TriPeaks
 
         private void PeakCardClicked(object sender, CardEventArgs e)
         {
-            if (viewModel.CardManager.CurrentCard.Value.IsAdjacentTo(e.Card.Value))
-            {
-                // The cards match!
-                (sender as CardRenderer).Visibility = Visibility.Collapsed;
-                viewModel.CardManager.CurrentCard = e.Card;
-                viewModel.Streak++;
-                viewModel.Wins += viewModel.Streak; // 1 card = $1, 2 cards = $2, ...
-                viewModel.CardManager.RecalculateCardsTurned();
-            }
+            if (!viewModel.CardManager.CurrentCard.Value.IsAdjacentTo(e.Card.Value))
+                return;
+            // The cards match!
+            (sender as CardRenderer).Visibility = Visibility.Collapsed;
+            viewModel.CardManager.CurrentCard = e.Card;
+            viewModel.Streak++;
+            viewModel.Wins += viewModel.Streak; // 1 card = $1, 2 cards = $2, ...
+            viewModel.CardManager.RecalculateCardsTurned();
         }
 
     }
@@ -212,15 +210,15 @@ namespace TriPeaks
 
         public void Reset()
         {
-            StartGame();
+            StartGame(throughReset: true);
         }
 
         /// <summary>
         /// Starts a new game.
         /// </summary>
-        public void StartGame()
+        public void StartGame(bool throughReset = false)
         {
-            if (GameInProgress)
+            if (throughReset && GameInProgress)
                 Losses += 140;
 
             reachedPeaks = 0;
@@ -242,8 +240,8 @@ namespace TriPeaks
             reachedPeaks++;
             int bonus = (reachedPeaks != 3 ? 15 : 30);
             Wins += bonus;
-            AdditionalString = String.Format("You have {0} giving you a ${1} bonus!",
-                (reachedPeaks == 3 ? "Tri-Conquered" : String.Format("reached Peak {0}", peakNames[number - 1])),
+            AdditionalString = string.Format("You have {0} giving you a ${1} bonus!",
+                (reachedPeaks == 3 ? "Tri-Conquered" : $"reached Peak {peakNames[number - 1]}"),
                 bonus);
         }
 
@@ -265,8 +263,8 @@ namespace TriPeaks
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int nValue = Int32.Parse(value.ToString());
-            return String.Format("{0}${1}", (nValue < 0) ? "Lost -" : "Won ", Math.Abs(nValue));
+            int nValue = int.Parse(value.ToString());
+            return string.Format("{0}${1}", (nValue < 0) ? "Lost -" : "Won ", Math.Abs(nValue));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -290,7 +288,7 @@ namespace TriPeaks
             int back = Properties.Settings.Default.Back;
             if (back < 0 || back > 7)
                 back = 0;
-            return String.Format("/Resources/backs/back_{0}.png", (back + 1));
+            return $"/Resources/backs/back_{back + 1}.png";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

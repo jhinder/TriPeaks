@@ -6,7 +6,7 @@ using System.Windows.Interop;
 namespace TriPeaks
 {
     // Source: http://stackoverflow.com/a/2341385
-    public static class IconHelper
+    internal static class IconHelper
     {
         const int GWL_EXSTYLE = -20;
         const int WS_EX_DLGMODALFRAME = 0x0001;
@@ -26,7 +26,7 @@ namespace TriPeaks
 
     }
 
-    internal partial class NativeMethods
+    internal sealed class NativeMethods
     {
         [DllImport("user32.dll")]
         internal static extern int GetWindowLong(IntPtr hwnd, int index);

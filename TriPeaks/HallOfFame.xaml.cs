@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using System.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace TriPeaks
 {
@@ -18,7 +18,7 @@ namespace TriPeaks
 
         private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Window_SourceInitialized(object sender, System.EventArgs e)
