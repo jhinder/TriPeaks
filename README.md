@@ -5,10 +5,10 @@ The original programs are 16 bit programs and don't run under newer Windows vers
 Originally the game was supposed to be as close to the orginal program as possible, but now the goal is to modernise the game while keeping the rules of the original.
 
 ## Requirements
-To run and compile the program, .NET 4.5 is required.  
-The program was written with Visual Studio 2013, although 2012 should also work.
+This program uses the .NET Framework 4.5.
 
-It could theoretically run under earlier versions of the .NET Framework, but then you'd lose all asynchronicity, and the code makes use of TPL & async quite a bit.
+To compile it, you need Visual Studio 2015 or any C# 6.0 compiler.  
+The project file itself is VS2012 compatible.
 
-## Licence
-The program is licenced under the MIT licence. See the license file for details.
+## License
+The program is licensed under the MIT license. See the license file (`LICENSE`) for details.
