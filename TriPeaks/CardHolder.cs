@@ -10,7 +10,7 @@ namespace TriPeaks
         /// <summary>
         /// The raw deck. Contains all available playing cards.
         /// </summary>
-        private static IList<Card> rawDeck;
+        private static IList<Card> rawDeck = new List<Card>(GenerateDeck());
 
         private Stack<Card> _bottomStack;
         /// <summary>
@@ -52,16 +52,7 @@ namespace TriPeaks
         /// A list of all cards in use by the "pyramids".
         /// </summary>
         public List<Card> PyramidCards { get; set; }
-
-        /// <summary>
-        /// Static constructor; initiates the raw deck.
-        /// </summary>
-        static CardHolder()
-        {
-            // Go through all cards once and add them to the base deck.
-            rawDeck = new List<Card>(GenerateDeck());
-        }
-
+        
         /// <summary>
         /// Sets the hidden status of the entire deck.
         /// </summary>
@@ -130,7 +121,7 @@ namespace TriPeaks
             int n;
             // Step 1: cards 1 to 3 (index 0-2)
             for (n = 0; n < 3; n++)
-                PyramidCards[n].Hidden = BothCardsPlayed(2 * (n + 1), 2 * (n + 1) + 1);
+                PyramidCards[n].Hidden = BothCardsPlayed(2 * (n + 1) + 1, 2 * (n + 1) + 2);
 
             // The 2nd row is not very nice because there is no single function, compared to rows 1 & 3.
             // Maybe we find one some day.
@@ -177,15 +168,13 @@ namespace TriPeaks
             // Generation order: colours, then values
             for (short colour = 0; colour < 4; colour++)
                 for (short value = 0; value < 13; value++)
-                    yield return new Card((CardColours)colour, (CardValues)value);
+                    yield return new Card { Colour = (CardColours)colour, Value = (CardValues)value };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

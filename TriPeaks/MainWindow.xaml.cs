@@ -236,7 +236,7 @@ namespace TriPeaks
                 return;
             }
             if (number < 1 || number > 3)
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(number), number, "The peak number must be between 1 and 3.");
             reachedPeaks++;
             int bonus = (reachedPeaks != 3 ? 15 : 30);
             Wins += bonus;
@@ -248,9 +248,7 @@ namespace TriPeaks
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -258,12 +256,16 @@ namespace TriPeaks
 
     #region Converters
 
+    [ValueConversion(typeof(int), typeof(string))]
     internal class WinLossConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int nValue = int.Parse(value.ToString());
+            if (value == null)
+                return string.Empty;
+            int nValue;
+            int.TryParse(value.ToString(), out nValue);
             return string.Format("{0}${1}", (nValue < 0) ? "Lost -" : "Won ", Math.Abs(nValue));
         }
 

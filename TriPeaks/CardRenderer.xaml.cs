@@ -29,17 +29,17 @@ namespace TriPeaks
                 return;
             
             card.Played = true;
-            CardEventArgs evArgs = new CardEventArgs(card);
-            CardClicked(this, evArgs);
+            CardClicked(this, new CardEventArgs(card));
         }
     }
 
     #region Converter
 
+    [ValueConversion(typeof(CardColours), typeof(string))]
     internal class ColourToSuitConverter : IValueConverter
     {
 
-        private static Dictionary<CardColours, string> suitMap = new Dictionary<CardColours, string>()
+        private static readonly IReadOnlyDictionary<CardColours, string> suitMap = new Dictionary<CardColours, string>()
         {
             {CardColours.Club,    "/Resources/suit/club.png" },
             {CardColours.Diamond, "/Resources/suit/diamond.png" },
@@ -49,6 +49,8 @@ namespace TriPeaks
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+                return string.Empty;
             string imageUri;
             suitMap.TryGetValue((CardColours)value, out imageUri);
             return imageUri;
@@ -60,9 +62,10 @@ namespace TriPeaks
         }
     }
 
+    [ValueConversion(typeof(CardValues), typeof(string))]
     internal class CardToNumberConverter : IValueConverter
     {
-        private static Dictionary<CardValues, string> numberMap = new Dictionary<CardValues, string>()
+        private static readonly IReadOnlyDictionary<CardValues, string> numberMap = new Dictionary<CardValues, string>()
         {
             {CardValues.Ace,   "A"},
             {CardValues.Two,   "2"},
@@ -81,6 +84,8 @@ namespace TriPeaks
     
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+                return string.Empty;
             string retVal;
             numberMap.TryGetValue((CardValues)value, out retVal);
             return retVal;
@@ -92,10 +97,11 @@ namespace TriPeaks
         }
     }
 
+    [ValueConversion(typeof(CardColours), typeof(Color))]
     internal class SuitToColourConverter : IValueConverter
     {
 
-        private static Dictionary<CardColours, Color> colourMap = new Dictionary<CardColours, Color>()
+        private static readonly IReadOnlyDictionary<CardColours, Color> colourMap = new Dictionary<CardColours, Color>()
         {
             {CardColours.Club,    Colors.Black},
             {CardColours.Diamond, Colors.Red},

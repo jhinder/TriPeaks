@@ -89,9 +89,7 @@ namespace TriPeaks
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
@@ -100,12 +98,17 @@ namespace TriPeaks
     /// </summary>
     public class IndexToBorderConverter : IMultiValueConverter
     {
+
+        private static readonly SolidColorBrush blackColour = new SolidColorBrush(Colors.Black);
+        private static readonly SolidColorBrush whiteColour = new SolidColorBrush(Colors.White);
+
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             /* First object: selected index (int)
              * Second object: button index (int) */
-            Color c = (values[0].ToString() == values[1].ToString() ? Colors.Black : Colors.White);
-            return new SolidColorBrush(c);
+            if (values == null || values.Length < 2)
+                return blackColour;
+            return (values[0].ToString() == values[1].ToString()) ? blackColour : whiteColour;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

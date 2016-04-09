@@ -10,7 +10,7 @@ namespace TriPeaks
     class Card : INotifyPropertyChanged
     {
 
-        private bool _hidden;
+        private bool _hidden = false;
         /// <summary>
         /// Determines if a card is hidden, i.e. its back is showing.
         /// </summary>
@@ -35,7 +35,7 @@ namespace TriPeaks
         /// </summary>
         public CardValues Value { get; set; }
 
-        private bool _played;
+        private bool _played = false;
         /// <summary>
         /// Gets or sets if this card has already been played.
         /// </summary>
@@ -52,31 +52,16 @@ namespace TriPeaks
                 RaisePropertyChanged();
             }
         }
-
-
+        
         /// <summary>
         /// Creates a new card.
         /// </summary>
-        /// <param name="colour">The colour (or suit) of the card.</param>
-        /// <param name="value">The value of the card.</param>
-        /// /// <param name="hidden">Determines if the card is hidden or shown. Default is hidden.</param>
-        public Card(CardColours colour, CardValues value, bool hidden = true)
-        {
-            this.Colour = colour;
-            this.Value = value;
-            this.Hidden = hidden;
-            this.Played = false;
-        }
-
         public Card() { }
-
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
