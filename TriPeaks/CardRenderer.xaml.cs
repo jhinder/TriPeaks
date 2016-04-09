@@ -52,8 +52,8 @@ namespace TriPeaks
             if (value == null)
                 return string.Empty;
             string imageUri;
-            suitMap.TryGetValue((CardColours)value, out imageUri);
-            return imageUri;
+            bool didGet = suitMap.TryGetValue((CardColours)value, out imageUri);
+            return didGet ? imageUri : string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -87,8 +87,8 @@ namespace TriPeaks
             if (value == null)
                 return string.Empty;
             string retVal;
-            numberMap.TryGetValue((CardValues)value, out retVal);
-            return retVal;
+            bool didGet = numberMap.TryGetValue((CardValues)value, out retVal);
+            return didGet ? retVal : string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -111,9 +111,11 @@ namespace TriPeaks
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+                return Colors.Black;
             Color retColour;
-            colourMap.TryGetValue((CardColours)value, out retColour);
-            return retColour;
+            bool didGet = colourMap.TryGetValue((CardColours)value, out retColour);
+            return didGet ? retColour : Colors.Black;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

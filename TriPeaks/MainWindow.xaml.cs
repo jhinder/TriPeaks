@@ -265,7 +265,9 @@ namespace TriPeaks
             if (value == null)
                 return string.Empty;
             int nValue;
-            int.TryParse(value.ToString(), out nValue);
+            bool didParse = int.TryParse(value.ToString(), out nValue);
+            if (!didParse)
+                nValue = 0;
             return string.Format(CultureInfo.CurrentCulture, "{0}${1}", (nValue < 0) ? Strings.LostString : Strings.WonString, Math.Abs(nValue));
         }
 

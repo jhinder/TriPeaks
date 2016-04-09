@@ -35,7 +35,9 @@ namespace TriPeaks
 
         private void SetBackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            viewModel.SelectedBack = int.Parse(e.Parameter.ToString());
+            int newBack;
+            bool didParse = int.TryParse(e.Parameter.ToString(), out newBack);
+            viewModel.SelectedBack = didParse ? newBack : 0;
         }
 
         private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)
