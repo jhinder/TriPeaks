@@ -19,14 +19,22 @@ namespace TriPeaks
         public static void RemoveIcon(Window window)
         {
             IntPtr hwnd = new WindowInteropHelper(window).Handle;
-            int extendedStyle = NativeMethods.GetWindowLong(hwnd, GWL_EXSTYLE);
-            NativeMethods.SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_DLGMODALFRAME);
-            NativeMethods.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            var extendedStyle = NativeMethods.GetWindowLong(hwnd, GWL_EXSTYLE);
+            if (extendedStyle == 0) {
+                // 0 -> method failed; don't attempt to change anything.
+                return;
+            }
+
+            if (NativeMethods.SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_DLGMODALFRAME) != 0) {
+                // same thing: 0 means the call has failed.
+                NativeMethods.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            }
+            
         }
 
     }
 
-    internal sealed class NativeMethods
+    internal static class NativeMethods
     {
         [DllImport("user32.dll")]
         internal static extern int GetWindowLong(IntPtr hwnd, int index);
@@ -35,9 +43,8 @@ namespace TriPeaks
         internal static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
 
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)] // SetWindowPos is defined as BOOL, which corresponds to Bool according to the CA1414 docs.
         internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
-
-        [DllImport("user32.dll")]
-        internal static extern IntPtr SendMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam);
+        
     }
 }
