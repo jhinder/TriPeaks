@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -59,7 +60,7 @@ namespace TriPeaks
             set
             {
                 _selectedBack = value;
-                RaisePropertyChanged("SelectedBack");
+                RaisePropertyChanged();
             }
         }
 
@@ -87,7 +88,7 @@ namespace TriPeaks
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -140,7 +141,7 @@ namespace TriPeaks
             set
             {
                 _additionalString = value;
-                RaisePropertyChanged("AdditionalString");
+                RaisePropertyChanged();
             }
         }
 
@@ -150,8 +151,8 @@ namespace TriPeaks
             set
             {
                 _wins = value;
-                RaisePropertyChanged("Wins");
-                RaisePropertyChanged("Score");
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Score));
             }
         }
 
@@ -161,8 +162,8 @@ namespace TriPeaks
             set
             {
                 _losses = value;
-                RaisePropertyChanged("Losses");
-                RaisePropertyChanged("Score");
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Score));
             }
         }
 
@@ -173,7 +174,7 @@ namespace TriPeaks
             set
             {
                 _streak = value;
-                RaisePropertyChanged("Streak");
+                RaisePropertyChanged();
             }
         }
 
@@ -194,7 +195,7 @@ namespace TriPeaks
             set
             {
                 _cardHolder = value;
-                RaisePropertyChanged("CardManager");
+                RaisePropertyChanged();
             }
         }
 
@@ -246,7 +247,7 @@ namespace TriPeaks
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

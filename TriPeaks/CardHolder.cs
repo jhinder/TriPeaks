@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace TriPeaks
 {
@@ -21,8 +22,8 @@ namespace TriPeaks
             private set
             {
                 _bottomStack = value;
-                RaisePropertyChanged("BottomStack");
-                RaisePropertyChanged("StackCount");
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(StackCount));
             }
         }
 
@@ -44,7 +45,7 @@ namespace TriPeaks
             {
                 _currentCard = value;
                 _currentCard.Hidden = false;
-                RaisePropertyChanged("CurrentCard");
+                RaisePropertyChanged();
             }
         }
 
@@ -154,8 +155,8 @@ namespace TriPeaks
 
             CurrentCard = BottomStack.Pop();
             CurrentCard.Hidden = false;
-            RaisePropertyChanged("CurrentCard");
-            RaisePropertyChanged("StackCount");
+            RaisePropertyChanged(nameof(CurrentCard));
+            RaisePropertyChanged(nameof(StackCount));
             return true;
         }
 
@@ -172,7 +173,7 @@ namespace TriPeaks
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void RaisePropertyChanged(string propertyName)
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
