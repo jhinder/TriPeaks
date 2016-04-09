@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace TriPeaks
 {
+    using System.Globalization;
+    using TriPeaks.Resources;
+
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
@@ -58,9 +61,7 @@ namespace TriPeaks
         {
             if (viewModel.GameInProgress) {
                 // Dealing while game in session = $140 penalty
-                var mres = MessageBox.Show("You are trying to deal with cards left in play for a penalty of 140 dollars. "
-                    + "Do you really want to redeal?",
-                    "TriPeaks Penalty",
+                var mres = MessageBox.Show(Strings.RedealPenalty, Strings.RedealPenaltyTitle,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question,
                     MessageBoxResult.Yes);
@@ -77,9 +78,7 @@ namespace TriPeaks
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (viewModel.GameInProgress) {
-                var mres = MessageBox.Show("You are exiting with cards left in play for a penalty of 140 dollars."
-                    + " - OUCH!! Do you really want to quit?",
-                    "Exiting TiPreaks",
+                var mres = MessageBox.Show(Strings.ExitingPenalty, Strings.ExitingTitle,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question,
                     MessageBoxResult.Yes);
@@ -241,8 +240,8 @@ namespace TriPeaks
             reachedPeaks++;
             int bonus = (reachedPeaks != 3 ? 15 : 30);
             Wins += bonus;
-            AdditionalString = string.Format("You have {0} giving you a ${1} bonus!",
-                (reachedPeaks == 3 ? "Tri-Conquered" : $"reached Peak {peakNames[number - 1]}"),
+            AdditionalString = string.Format(CultureInfo.CurrentCulture, Strings.PeakConqueredInfo,
+                (reachedPeaks == 3 ? Strings.TriConquered : string.Format(CultureInfo.CurrentCulture, Strings.ReachedPeakN, peakNames[number - 1])),
                 bonus);
         }
 
@@ -261,16 +260,16 @@ namespace TriPeaks
     internal class WinLossConverter : IValueConverter
     {
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
                 return string.Empty;
             int nValue;
             int.TryParse(value.ToString(), out nValue);
-            return string.Format("{0}${1}", (nValue < 0) ? "Lost -" : "Won ", Math.Abs(nValue));
+            return string.Format(CultureInfo.CurrentCulture, "{0}${1}", (nValue < 0) ? Strings.LostString : Strings.WonString, Math.Abs(nValue));
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -281,7 +280,7 @@ namespace TriPeaks
     public class CardBackProvider : IValueConverter
     {
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Short circuiting is essential here.
             if (value != null
@@ -291,10 +290,10 @@ namespace TriPeaks
             int back = Properties.Settings.Default.Back;
             if (back < 0 || back > 7)
                 back = 0;
-            return $"/Resources/backs/back_{back + 1}.png";
+            return string.Format(CultureInfo.InvariantCulture, "/Resources/backs/back_{0}.png", back + 1);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
