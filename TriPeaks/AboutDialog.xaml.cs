@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 
 namespace TriPeaks
@@ -31,4 +33,36 @@ namespace TriPeaks
             });   
         }
     }
+
+    internal class AboutDialogViewModel
+    {
+
+        private static readonly Assembly thisAssembly = typeof(AboutDialogViewModel).Assembly;
+
+        private readonly string assemblyVersion = "Version 1.0";
+        private readonly string assemblyCopyright = "&#169; dfragment.net 2015-2016";
+
+        public AboutDialogViewModel()
+        {
+            var copyrightAttrs = thisAssembly.GetCustomAttributes<AssemblyCopyrightAttribute>();
+            var versionAttrs = thisAssembly.GetCustomAttributes<AssemblyVersionAttribute>();
+
+            if (copyrightAttrs.Any())
+                assemblyCopyright = copyrightAttrs.First().Copyright;
+            if (versionAttrs.Any())
+                assemblyVersion = versionAttrs.First().Version;
+        }
+
+        public string Version
+        {
+            get { return assemblyVersion; }
+        }
+
+        public string Copyright
+        {
+            get { return assemblyCopyright; }
+        }
+
+    }
+
 }

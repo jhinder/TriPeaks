@@ -1,6 +1,7 @@
 ﻿<Window x:Class="TriPeaks.AboutDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TriPeaks"
         xmlns:resx="clr-namespace:TriPeaks.Resources"
         Title="{x:Static resx:Strings.AboutTitle}"
         Height="220" Width="300"
@@ -8,6 +9,10 @@
         Background="{StaticResource NeutralGrey}"
         SourceInitialized="Window_SourceInitialized"
         ResizeMode="NoResize">
+
+    <Window.DataContext>
+        <local:AboutDialogViewModel />
+    </Window.DataContext>
     
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" />
@@ -33,11 +38,11 @@
                 <LineBreak />
                 <Run Text="{x:Static resx:Strings.AboutDescription}" />
             </TextBlock>
-            
+
             <TextBlock>
-                <Run>Version 0.1</Run>
+                <Run Text="{Binding Path=Version, Mode=OneTime}" />
                 <LineBreak />
-                <Run>&#169; jhinder 2015</Run>
+                <Run Text="{Binding Path=Copyright, Mode=OneTime}" />
             </TextBlock>
             
             <TextBlock>

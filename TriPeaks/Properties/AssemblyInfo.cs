@@ -7,7 +7,7 @@ using System.Windows;
 [assembly: AssemblyDescription("A clone of the 1991 card game.")]
 [assembly: AssemblyCompany("dfragment.net")]
 [assembly: AssemblyProduct("TriPeaks")]
-[assembly: AssemblyCopyright("Copyright © dfragment.net 2015-2016")]
+[assembly: AssemblyCopyright("© dfragment.net 2015-2016")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
