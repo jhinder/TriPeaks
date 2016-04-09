@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -18,6 +19,8 @@ using System.Windows;
 [assembly: CLSCompliant(true)]
 
 [assembly: ComVisible(false)]
+
+[assembly: InternalsVisibleTo("TriPeaks.Test")]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
