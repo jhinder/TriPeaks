@@ -11,9 +11,13 @@ namespace TriPeaks
     /// </summary>
     public partial class HallOfFame : Window
     {
+
+        private HighscoreViewModel highscoreModel;
+
         public HallOfFame()
         {
             InitializeComponent();
+            highscoreModel = DataContext as HighscoreViewModel;
         }
 
         private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)
@@ -21,81 +25,61 @@ namespace TriPeaks
             Close();
         }
 
-        private void Window_SourceInitialized(object sender, System.EventArgs e)
+        private void Window_SourceInitialized(object sender, EventArgs e)
         {
             IconHelper.RemoveIcon(this);
         }
 
-        /// <summary>
-        /// Try to write a new entry to the highscores. Will silently fail if the score was too low to insert.
-        /// </summary>
-        /// <param name="name">The player's name.</param>
-        /// <param name="score">The game score.</param>
-        public static void InsertSaveEntry(string name, int score)
+    }
+
+    internal class HighscoreViewModel
+    {
+        
+        public static string[] Names
         {
-            string[] names;
-            int[] scores;
-            HighscoreViewModel.ReadHighscores(out names, out scores);
-            if (score < scores.Min())
-                return;
+            get { return HighscoreManager.Instance?.Highscores.Select(x => x.Name).ToArray(); }
+        }
 
-            // New score list
-            var tmpScores = scores.ToList();
-            tmpScores.Add(score);
-            var newScores = tmpScores.OrderBy(x => x).Take(10).ToArray();
-
-            // New name list
-            var nEntryIndex = tmpScores.IndexOf(score);
-            List<string> newNames = new List<string>();
-            int i;
-            for (i=0; i<nEntryIndex; i++) // The old entries with better players
-                newNames.Add(names[i]);
-            newNames.Add(name);
-            for (i = nEntryIndex + 1; i < 9; i++) // The remaining entries below the new entry
-                newNames.Add(names[i]);
-
-            // Write the entries back into the settings file
-            string cNames = String.Join(";", newNames.ToArray());
-            string cScores = String.Join(";", newScores.ToArray());
-
-            var settings = Properties.Settings.Default;
-            settings.Names = cNames;
-            settings.Scores = cScores;
-            settings.Save();
-            
+        public static int[] Scores
+        {
+            get { return HighscoreManager.Instance?.Highscores.Select(x => x.Score).ToArray(); }
         }
 
     }
 
-    public class HighscoreViewModel
+    /// <summary>
+    /// The high score manager allows to read and write the high score table.
+    /// </summary>
+    internal class HighscoreManager
     {
 
-        private string[] _names;
+        private static HighscoreManager instance = new HighscoreManager();
         /// <summary>
-        /// An array of names in the high score list.
+        /// The singleton insance of the high score manager.
         /// </summary>
-        public string[] Names
+        internal static HighscoreManager Instance { get { return instance; } }
+
+        private List<HighScoreEntry> highscores;
+        /// <summary>
+        /// The list of all high scores.
+        /// </summary>
+        internal IReadOnlyList<HighScoreEntry> Highscores
         {
-            get { return _names; }
+            get { return highscores; }
         }
 
-        private int[] _scores;
-        /// <summary>
-        /// An array of scores in the high score list.
-        /// </summary>
-        public int[] Scores { get { return _scores; } }
-
-        public HighscoreViewModel()
+        private HighscoreManager()
         {
-            ReadHighscores(out _names, out _scores);
+            highscores = LoadHighscores().ToList();
         }
 
+        private bool isDirty = false;
+
         /// <summary>
-        /// Reads the high scores from the user's app settings.
+        /// Loads the high score table from the disk.
         /// </summary>
-        /// <param name="names">A <see cref="string"/> array where the names will be inserted into.</param>
-        /// <param name="scores">An <see cref="int"/> array where the scores will be inserted into.</param>
-        public static void ReadHighscores(out string[] names, out int[] scores)
+        /// <returns>An enumeration of <see cref="HighScoreEntry"/>.</returns>
+        internal IEnumerable<HighScoreEntry> LoadHighscores()
         {
             var preferences = Properties.Settings.Default;
 
@@ -106,17 +90,82 @@ namespace TriPeaks
             string rawScores = preferences.Scores;
             const char separator = ';';
 
-            names = rawNames.Split(separator);
+            var names = rawNames.Split(separator);
             // What's nice: WPF ignores missing values at indexes, so there's no urgent need to check.
 
-            var scoreArray = rawScores.Split(separator);
-            try {
-                scores = scoreArray.Select(x => Int32.Parse(x)).ToArray();
-            }
-            catch (FormatException) {
-                scores = new int[10];
-            }
+            var scores = rawScores.Split(separator).Select(x => int.Parse(x)).ToArray();
+            for (int i = 0; i < names.Length; i++)
+                yield return new HighScoreEntry { Name = names[i], Score = scores[i] };
+            
         }
+
+        /// <summary>
+        /// Checks if a score is a high score.
+        /// </summary>
+        /// <param name="score">The score to be checked.</param>
+        /// <returns>true if <paramref name="score"/> would be a highscore, otherwise false.</returns>
+        internal bool IsHighscore(int score)
+        {
+             return score >= Highscores.Min(x => x.Score);
+        }
+
+        /// <summary>
+        /// Adds a new high score to the table.
+        /// </summary>
+        /// <param name="name">The name of the player.</param>
+        /// <param name="score">The score of the player.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="name"/> is null or empty.</exception>
+        /// <remarks>If <paramref name="score"/> is less than the lowest score, the call returns without modifying the high score table.</remarks>
+        internal void AddHighscore(string name, int score)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+            if (!IsHighscore(score))
+                return;
+
+            highscores.Add(new HighScoreEntry { Name = name, Score = score });
+            highscores = highscores.OrderByDescending(x => x.Score).Take(10).ToList();
+            isDirty = true;
+            SaveHighscores();
+        }
+
+        /// <summary>
+        /// Writes the high score table to the disk.
+        /// </summary>
+        internal void SaveHighscores()
+        {
+            if (!isDirty)
+                return;
+            
+            var newNames = Highscores.Select(x => x.Name).ToArray();
+            var newScores = Highscores.Select(x => x.Score).ToArray();
+
+            var settings = Properties.Settings.Default;
+            settings.Names = string.Join(";", newNames);
+            settings.Scores = string.Join(";", newScores);
+            settings.Save();
+
+            isDirty = false;
+        }
+
+    }
+
+    /// <summary>
+    /// An entry in the highscore table.
+    /// </summary>
+    internal struct HighScoreEntry
+    {
+
+        /// <summary>
+        /// The name of the player.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The score the player achieved.
+        /// </summary>
+        public int Score { get; set; }
+        
     }
 
 }
