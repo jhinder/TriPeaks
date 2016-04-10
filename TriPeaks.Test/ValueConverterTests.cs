@@ -108,7 +108,9 @@ namespace TriPeaks.Test
             Assert.AreEqual(string.Empty, ctnOOR);
 
             var wlNull = winLoss.Convert(null, stringType, null, null);
+            var wlString = winLoss.Convert("x", stringType, null, null);
             Assert.AreEqual(string.Empty, wlNull);
+            Assert.AreEqual("Won $0", wlString);
 
 
             var itbNull = indexBorder.Convert(null, colourType, null, null) as SolidColorBrush;

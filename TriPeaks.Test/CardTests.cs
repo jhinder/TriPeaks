@@ -23,6 +23,7 @@ namespace TriPeaks.Test
             bool adjacentA2 = CardValues.Ace.IsAdjacentTo(CardValues.Two);
             bool adjacentAK = CardValues.Ace.IsAdjacentTo(CardValues.King);
             bool adjacentKA = CardValues.King.IsAdjacentTo(CardValues.Ace);
+            bool adjacent98 = CardValues.Nine.IsAdjacentTo(CardValues.Eight);
             bool notAdjacent = CardValues.Five.IsAdjacentTo(CardValues.Eight);
             bool notAdjacentC = CardValues.Queen.IsAdjacentTo(CardValues.Three);
             bool notAdjacentSame = CardValues.Ace.IsAdjacentTo(CardValues.Ace);
@@ -30,6 +31,7 @@ namespace TriPeaks.Test
             Assert.IsTrue(adjacentA2);
             Assert.IsTrue(adjacentAK);
             Assert.IsTrue(adjacentKA);
+            Assert.IsTrue(adjacent98);
             Assert.IsFalse(notAdjacent);
             Assert.IsFalse(notAdjacentC);
             Assert.IsFalse(notAdjacentSame);
@@ -95,5 +97,14 @@ namespace TriPeaks.Test
             Assert.AreEqual(c.Played, true);
             Assert.AreEqual(c.Value, CardValues.Eight);
         }
+
+        [TestMethod]
+        public void TestCardEvArgs()
+        {
+            Card c = new Card { Colour = CardColours.Club, Hidden = false, Played = false, Value = CardValues.Ten };
+            CardEventArgs ca = new CardEventArgs(c);
+            Assert.AreEqual(c, ca.Card);
+        }
+
     }
 }

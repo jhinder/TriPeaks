@@ -26,6 +26,14 @@ namespace TriPeaks.Test
             var newMaxEntry = hsm.Highscores.First();
             Assert.AreEqual(entryName, newMaxEntry.Name);
             Assert.AreEqual(score, newMaxEntry.Score);
+            hsm.SaveHighscores(); // for code coverage only
+        }
+
+        [TestMethod]
+        public void TryInsertingSmallValue()
+        {
+            hsm.AddHighscore("Unit Test", int.MinValue);
+            Assert.IsFalse(hsm.Highscores.Any(x => x.Score == int.MinValue), "int.MinValue could be inserted.");
         }
 
         [TestMethod]
