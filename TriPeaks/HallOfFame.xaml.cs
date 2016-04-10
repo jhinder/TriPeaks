@@ -12,12 +12,9 @@ namespace TriPeaks
     public partial class HallOfFame : Window
     {
 
-        private HighscoreViewModel highscoreModel;
-
         public HallOfFame()
         {
             InitializeComponent();
-            highscoreModel = DataContext as HighscoreViewModel;
         }
 
         private void CloseExecuted(object sender, ExecutedRoutedEventArgs e)

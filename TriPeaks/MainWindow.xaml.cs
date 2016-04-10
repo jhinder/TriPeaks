@@ -134,7 +134,7 @@ namespace TriPeaks
     internal class TriPeaksViewModel : INotifyPropertyChanged
     {
 
-        private string _additionalString;
+        private string _additionalString = string.Empty;
         public string AdditionalString
         {
             get { return _additionalString;  }
@@ -185,7 +185,7 @@ namespace TriPeaks
 
         public int Score
         {
-            get { return Wins + (Losses * (-1)); }
+            get { return Wins - Losses; }
         }
 
         private CardHolder _cardHolder;
@@ -225,6 +225,8 @@ namespace TriPeaks
             reachedPeaks = 0;
             CardManager = new CardHolder();
             GameInProgress = true;
+            Streak = 0;
+            AdditionalString = string.Empty;
         }
 
         private string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };

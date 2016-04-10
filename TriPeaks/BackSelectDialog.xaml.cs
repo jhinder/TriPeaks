@@ -63,6 +63,8 @@ namespace TriPeaks
             get { return _selectedBack; }
             set
             {
+                if (value < 0 || value >= 8)
+                    value = 0;
                 _selectedBack = value;
                 RaisePropertyChanged();
             }
@@ -80,8 +82,6 @@ namespace TriPeaks
                 SelectedBack = 0;
             }
 
-            if (SelectedBack < 0 || SelectedBack >= 8)
-                SelectedBack = 0;
         }
 
         public void Save()

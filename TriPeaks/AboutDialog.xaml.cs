@@ -45,12 +45,13 @@ namespace TriPeaks
         public AboutDialogViewModel()
         {
             var copyrightAttrs = thisAssembly.GetCustomAttributes<AssemblyCopyrightAttribute>();
-            var versionAttrs = thisAssembly.GetCustomAttributes<AssemblyVersionAttribute>();
+            var versionAttrs = thisAssembly.GetCustomAttributes<AssemblyFileVersionAttribute>();
+            // AssemblyVersionAttribute is not added to the assembly metadata.
 
             if (copyrightAttrs.Any())
                 assemblyCopyright = copyrightAttrs.First().Copyright;
             if (versionAttrs.Any())
-                assemblyVersion = versionAttrs.First().Version;
+                assemblyVersion = $"Version {versionAttrs.First().Version}";
         }
 
         public string Version
