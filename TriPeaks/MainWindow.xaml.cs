@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 namespace TriPeaks
 {
     using System.Globalization;
-    using TriPeaks.Resources;
+    using Resources;
 
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
@@ -271,6 +272,7 @@ namespace TriPeaks
             return string.Format(CultureInfo.CurrentCulture, "{0}${1}", (nValue < 0) ? Strings.LostString : Strings.WonString, Math.Abs(nValue));
         }
 
+        [ExcludeFromCodeCoverage]
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
@@ -295,6 +297,7 @@ namespace TriPeaks
             return string.Format(CultureInfo.InvariantCulture, "/Resources/backs/back_{0}.png", back + 1);
         }
 
+        [ExcludeFromCodeCoverage]
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

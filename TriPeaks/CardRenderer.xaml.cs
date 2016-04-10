@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -56,6 +57,7 @@ namespace TriPeaks
             return didGet ? imageUri : string.Empty;
         }
 
+        [ExcludeFromCodeCoverage]
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
@@ -91,6 +93,7 @@ namespace TriPeaks
             return didGet ? retVal : string.Empty;
         }
 
+        [ExcludeFromCodeCoverage]
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
  	        throw new NotImplementedException();
@@ -118,6 +121,7 @@ namespace TriPeaks
             return didGet ? retColour : Colors.Black;
         }
 
+        [ExcludeFromCodeCoverage]
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();

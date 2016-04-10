@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
@@ -109,11 +111,15 @@ namespace TriPeaks
         {
             /* First object: selected index (int)
              * Second object: button index (int) */
-            if (values == null || values.Length < 2)
-                return blackColour;
-            return (values[0].ToString() == values[1].ToString()) ? blackColour : whiteColour;
+            if (values == null)
+                return whiteColour;
+            var castValues = values.OfType<int>();
+            if (castValues.Count() < 2)
+                return whiteColour;
+            return (castValues.ElementAt(0) == castValues.ElementAt(1)) ? blackColour : whiteColour;
         }
 
+        [ExcludeFromCodeCoverage]
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();

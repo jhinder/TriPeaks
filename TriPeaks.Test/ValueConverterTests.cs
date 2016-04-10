@@ -14,9 +14,11 @@ namespace TriPeaks.Test
         private ColourToSuitConverter colourToSuit;
         private CardToNumberConverter cardToNumber;
         private SuitToColourConverter suitToColour;
+        private WinLossConverter winLoss;
+        private IndexToBorderConverter indexBorder;
 
-        private Type stringType = typeof(string);
-        private Type colourType = typeof(Color);
+        private readonly Type stringType = typeof(string);
+        private readonly Type colourType = typeof(Color);
 
         [TestInitialize]
         public void Setup()
@@ -24,6 +26,8 @@ namespace TriPeaks.Test
             colourToSuit = new ColourToSuitConverter();
             cardToNumber = new CardToNumberConverter();
             suitToColour = new SuitToColourConverter();
+            winLoss = new WinLossConverter();
+            indexBorder = new IndexToBorderConverter();
         }
 
         [TestMethod]
@@ -63,6 +67,29 @@ namespace TriPeaks.Test
         }
 
         [TestMethod]
+        public void TestWinLossConverter()
+        {
+            var winValue = winLoss.Convert(123, stringType, null, null) as string;
+            var lossValue = winLoss.Convert(-123, stringType, null, null) as string;
+            var zeroValue = winLoss.Convert(0, stringType, null, null) as string;
+
+            Assert.AreEqual("Won $123", winValue);
+            Assert.AreEqual("Lost -$123", lossValue);
+            Assert.AreEqual("Won $0", zeroValue);
+        }
+
+        [TestMethod]
+        public void TestIndexToBorderConverter()
+        {
+            var itbEquals = indexBorder.Convert(new object[] { 1, 1 }, colourType, null, null) as SolidColorBrush;
+            Assert.AreEqual(Colors.Black, itbEquals.Color);
+            var itbNotEquals = indexBorder.Convert(new object[] { 1, 2 }, colourType, null, null) as SolidColorBrush;
+            Assert.AreEqual(Colors.White, itbNotEquals.Color);
+            var itbExtraElements = indexBorder.Convert(new object[] { 1, 1, 2 }, colourType, null, null) as SolidColorBrush;
+            Assert.AreEqual(Colors.Black, itbExtraElements.Color);
+        }
+
+        [TestMethod]
         public void TestConvertersWithInvalidValues()
         {
             var ctsNull = colourToSuit.Convert(null, stringType, null, null);
@@ -80,6 +107,16 @@ namespace TriPeaks.Test
             Assert.AreEqual(string.Empty, ctnNull);
             Assert.AreEqual(string.Empty, ctnOOR);
 
+            var wlNull = winLoss.Convert(null, stringType, null, null);
+            Assert.AreEqual(string.Empty, wlNull);
+
+
+            var itbNull = indexBorder.Convert(null, colourType, null, null) as SolidColorBrush;
+            var itbTooShort = indexBorder.Convert(new object[] { 0 }, colourType, null, null) as SolidColorBrush;
+            var itbZeroArray = indexBorder.Convert(new object[] { null, null }, colourType, null, null) as SolidColorBrush;
+            Assert.AreEqual(Colors.White, itbNull.Color);
+            Assert.AreEqual(Colors.White, itbTooShort.Color);
+            Assert.AreEqual(Colors.White, itbZeroArray.Color);
         }
     }
 

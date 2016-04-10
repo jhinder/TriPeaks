@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -34,6 +35,7 @@ namespace TriPeaks
 
     }
 
+    [ExcludeFromCodeCoverage]
     internal static class NativeMethods
     {
         [DllImport("user32.dll")]
