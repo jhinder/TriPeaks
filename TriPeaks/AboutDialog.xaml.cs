@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -28,41 +27,32 @@ namespace TriPeaks
         private async void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             await Dispatcher.InvokeAsync(() => {
-                Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+                var procStart = Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
                 e.Handled = true;
+                procStart.Dispose();
             });   
         }
     }
 
     internal class AboutDialogViewModel
     {
-
-        private static readonly Assembly thisAssembly = typeof(AboutDialogViewModel).Assembly;
-
         private readonly string assemblyVersion = "Version 1.0";
-        private readonly string assemblyCopyright = "&#169; dfragment.net 2015-2016";
+        private readonly string assemblyCopyright = "&#169; dfragment.net 2015-2017";
 
         public AboutDialogViewModel()
         {
-            var copyrightAttrs = thisAssembly.GetCustomAttributes<AssemblyCopyrightAttribute>();
-            var versionAttrs = thisAssembly.GetCustomAttributes<AssemblyFileVersionAttribute>();
-            // AssemblyVersionAttribute is not added to the assembly metadata.
+            var thisAssembly = GetType().Assembly;
+            var copyrightAttr = thisAssembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
+            var version = thisAssembly.GetName().Version.ToString(2);
 
-            if (copyrightAttrs.Any())
-                assemblyCopyright = copyrightAttrs.First().Copyright;
-            if (versionAttrs.Any())
-                assemblyVersion = $"Version {versionAttrs.First().Version}";
+            if (copyrightAttr != null)
+                assemblyCopyright = copyrightAttr.Copyright;
+            assemblyVersion = $"Version {version}";
         }
 
-        public string Version
-        {
-            get { return assemblyVersion; }
-        }
+        public string Version => assemblyVersion;
 
-        public string Copyright
-        {
-            get { return assemblyCopyright; }
-        }
+        public string Copyright => assemblyCopyright;
 
     }
 
