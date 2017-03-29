@@ -67,6 +67,7 @@
     <Compile Include="CardRenderer.xaml.cs">
       <DependentUpon>CardRenderer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HighscoreManager.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

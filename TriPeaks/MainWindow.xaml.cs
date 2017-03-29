@@ -89,6 +89,18 @@ namespace TriPeaks
                 else
                     viewModel.Losses += 140;
             }
+
+            if (!e.Cancel) {
+                // App will exit
+                Cleanup();
+            }
+        }
+
+        private void Cleanup()
+        {
+            // General housekeeping: save things that need to be saved, close things that need to be closed.
+            if (HighscoreManager.LazyInstance.IsValueCreated)
+                HighscoreManager.Instance.Save();
         }
 
         private void WindowCloseExecuted(object sender, ExecutedRoutedEventArgs e)

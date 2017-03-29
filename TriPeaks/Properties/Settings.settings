@@ -5,11 +5,5 @@
     <Setting Name="Back" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Names" Type="System.String" Scope="User">
-      <Value Profile="(Default)">N1;N2;N3;N4;N5;N6;N7;N8;N9;10</Value>
-    </Setting>
-    <Setting Name="Scores" Type="System.String" Scope="User">
-      <Value Profile="(Default)">100;90;80;70;60;50;40;30;20;10</Value>
-    </Setting>
   </Settings>
 </SettingsFile>
