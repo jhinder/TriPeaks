@@ -1,31 +1,35 @@
-﻿<Window x:Class="TriPeaks.HallOfFame"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:TriPeaks"
-        xmlns:resx="clr-namespace:TriPeaks.Resources"
-        Title="{x:Static resx:Strings.HallOfFameTitle}"
-        Height="360" Width="386"
-        ResizeMode="NoResize"
-        MinWidth="386"
-        SizeToContent="Width"
-        SourceInitialized="Window_SourceInitialized">
+﻿<Window
+    x:Class="TriPeaks.HallOfFame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TriPeaks"
+    xmlns:resx="clr-namespace:TriPeaks.Resources"
+    Title="{x:Static resx:Strings.HallOfFameTitle}"
+    Width="386"
+    Height="360"
+    MinWidth="386"
+    ResizeMode="NoResize"
+    SizeToContent="Width"
+    WindowStyle="ToolWindow">
     <Window.DataContext>
         <local:HighscoreViewModel />
     </Window.DataContext>
-    
+
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" />
     </Window.CommandBindings>
-    
+
     <Window.InputBindings>
-        <KeyBinding Command="ApplicationCommands.Close" Key="Enter" />
-        <KeyBinding Command="ApplicationCommands.Close" Key="Escape" />
+        <KeyBinding Key="Enter" Command="ApplicationCommands.Close" />
+        <KeyBinding Key="Escape" Command="ApplicationCommands.Close" />
     </Window.InputBindings>
-    
+
     <DockPanel LastChildFill="False">
 
-        <GroupBox Header="{x:Static resx:Strings.HOFBoxTitle}" DockPanel.Dock="Top"
-                  Margin="4">
+        <GroupBox
+            Margin="4"
+            DockPanel.Dock="Top"
+            Header="{x:Static resx:Strings.HOFBoxTitle}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -57,39 +61,100 @@
                 <Label Grid.Row="7" Content="{x:Static resx:Strings.HOF8th}" />
                 <Label Grid.Row="8" Content="{x:Static resx:Strings.HOF9th}" />
                 <Label Grid.Row="9" Content="{x:Static resx:Strings.HOF10th}" />
-                
-                <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=Names[0]}"/>
-                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Names[1]}"/>
-                <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Names[2]}"/>
-                <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Names[3]}"/>
-                <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=Names[4]}"/>
-                <Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=Names[5]}"/>
-                <Label Grid.Row="6" Grid.Column="1" Content="{Binding Path=Names[6]}"/>
-                <Label Grid.Row="7" Grid.Column="1" Content="{Binding Path=Names[7]}"/>
-                <Label Grid.Row="8" Grid.Column="1" Content="{Binding Path=Names[8]}"/>
-                <Label Grid.Row="9" Grid.Column="1" Content="{Binding Path=Names[9]}"/>
 
-                <Label Grid.Row="0" Grid.Column="2" Content="{Binding Path=Scores[0]}"/>
-                <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=Scores[1]}"/>
-                <Label Grid.Row="2" Grid.Column="2" Content="{Binding Path=Scores[2]}"/>
-                <Label Grid.Row="3" Grid.Column="2" Content="{Binding Path=Scores[3]}"/>
-                <Label Grid.Row="4" Grid.Column="2" Content="{Binding Path=Scores[4]}"/>
-                <Label Grid.Row="5" Grid.Column="2" Content="{Binding Path=Scores[5]}"/>
-                <Label Grid.Row="6" Grid.Column="2" Content="{Binding Path=Scores[6]}"/>
-                <Label Grid.Row="7" Grid.Column="2" Content="{Binding Path=Scores[7]}"/>
-                <Label Grid.Row="8" Grid.Column="2" Content="{Binding Path=Scores[8]}"/>
-                <Label Grid.Row="9" Grid.Column="2" Content="{Binding Path=Scores[9]}"/>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[0]}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[1]}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[2]}" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[3]}" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[4]}" />
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[5]}" />
+                <Label
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[6]}" />
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[7]}" />
+                <Label
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[8]}" />
+                <Label
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Content="{Binding Path=Names[9]}" />
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[0]}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[1]}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[2]}" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[3]}" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[4]}" />
+                <Label
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[5]}" />
+                <Label
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[6]}" />
+                <Label
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[7]}" />
+                <Label
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[8]}" />
+                <Label
+                    Grid.Row="9"
+                    Grid.Column="2"
+                    Content="{Binding Path=Scores[9]}" />
 
             </Grid>
         </GroupBox>
-        
-        <Button Command="ApplicationCommands.Close"
-                DockPanel.Dock="Bottom"
-                IsDefault="True"
-                Content="{x:Static resx:Strings.GenericOK}"
-                HorizontalAlignment="Center"
-                Width="64"
-                Margin="4"/>
-        
+
+        <Button
+            Width="64"
+            Margin="4"
+            HorizontalAlignment="Center"
+            Command="ApplicationCommands.Close"
+            Content="{x:Static resx:Strings.GenericOK}"
+            DockPanel.Dock="Bottom"
+            IsDefault="True" />
+
     </DockPanel>
 </Window>

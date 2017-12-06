@@ -95,7 +95,7 @@ namespace TriPeaks
     /// <summary>
     /// Defines all possible card colours.
     /// </summary>
-    enum CardColours
+    internal enum CardColours
     {
         /// <summary>Club (♣, black)</summary>
         Club,
@@ -110,7 +110,7 @@ namespace TriPeaks
     /// <summary>
     /// Defines all possible card values.
     /// </summary>
-    enum CardValues
+    internal enum CardValues
     {
         /// <summary>Ace (1)</summary>
         Ace,

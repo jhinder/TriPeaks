@@ -24,11 +24,6 @@ namespace TriPeaks
             viewModel = DataContext as BackSelectViewModel;
         }
 
-        private void Window_SourceInitialized(object sender, EventArgs e)
-        {
-            IconHelper.RemoveIcon(this);
-        }
-
         private void SaveCommand(object sender, ExecutedRoutedEventArgs e)
         {
             viewModel.Save();

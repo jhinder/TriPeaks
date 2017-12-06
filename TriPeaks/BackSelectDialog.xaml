@@ -1,13 +1,15 @@
-﻿<Window x:Class="TriPeaks.BackSelectDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:TriPeaks"
-        xmlns:resx="clr-namespace:TriPeaks.Resources"
-        Title="{x:Static resx:Strings.SelectBackTitle}"
-        Height="265" Width="350"
-        ResizeMode="NoResize"
-        SizeToContent="WidthAndHeight"
-        SourceInitialized="Window_SourceInitialized">
+﻿<Window
+    x:Class="TriPeaks.BackSelectDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TriPeaks"
+    xmlns:resx="clr-namespace:TriPeaks.Resources"
+    Title="{x:Static resx:Strings.SelectBackTitle}"
+    Width="350"
+    Height="265"
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight"
+    WindowStyle="ToolWindow">
 
     <Window.DataContext>
         <local:BackSelectViewModel />
@@ -36,12 +38,12 @@
     </Window.CommandBindings>
 
     <Window.InputBindings>
-        <KeyBinding Command="ApplicationCommands.Close" Key="Escape" />
-        <KeyBinding Command="{StaticResource SaveCommand}" Key="Return" />
+        <KeyBinding Key="Escape" Command="ApplicationCommands.Close" />
+        <KeyBinding Key="Return" Command="{StaticResource SaveCommand}" />
     </Window.InputBindings>
 
     <StackPanel>
-        <Grid Margin="8, 4">
+        <Grid Margin="8,4">
             <Grid.Resources>
                 <Style TargetType="Image">
                     <Setter Property="Width" Value="64" />
@@ -60,7 +62,7 @@
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </Setter.Value>
-                        
+
                     </Setter>
                 </Style>
             </Grid.Resources>
@@ -75,52 +77,70 @@
                 <ColumnDefinition Width="0.25*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0"
-                    CommandParameter="0">
-            <Image Source="{StaticResource ImageA}"/>
+            <Button
+                Grid.Row="0"
+                Grid.Column="0"
+                CommandParameter="0">
+                <Image Source="{StaticResource ImageA}" />
             </Button>
 
-            <Button Grid.Row="0" Grid.Column="1"
-                    CommandParameter="1">
-                <Image Source="{StaticResource ImageB}"/>
+            <Button
+                Grid.Row="0"
+                Grid.Column="1"
+                CommandParameter="1">
+                <Image Source="{StaticResource ImageB}" />
             </Button>
 
-            <Button Grid.Row="0" Grid.Column="2"
-                    CommandParameter="2">
-                <Image Source="{StaticResource ImageC}"/>
+            <Button
+                Grid.Row="0"
+                Grid.Column="2"
+                CommandParameter="2">
+                <Image Source="{StaticResource ImageC}" />
             </Button>
 
-            <Button Grid.Row="0" Grid.Column="3"
-                    CommandParameter="3">
-                <Image Source="{StaticResource ImageD}"/>
+            <Button
+                Grid.Row="0"
+                Grid.Column="3"
+                CommandParameter="3">
+                <Image Source="{StaticResource ImageD}" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="0"
-                    CommandParameter="4">
-                <Image Source="{StaticResource ImageE}"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                CommandParameter="4">
+                <Image Source="{StaticResource ImageE}" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="1"
-                    CommandParameter="5">
-                <Image Source="{StaticResource ImageF}"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                CommandParameter="5">
+                <Image Source="{StaticResource ImageF}" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="2"
-                    CommandParameter="6">
-                <Image Source="{StaticResource ImageG}"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                CommandParameter="6">
+                <Image Source="{StaticResource ImageG}" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="3"
-                    CommandParameter="7">
-                <Image Source="{StaticResource ImageH}"/>
+            <Button
+                Grid.Row="1"
+                Grid.Column="3"
+                CommandParameter="7">
+                <Image Source="{StaticResource ImageH}" />
             </Button>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                    Margin="0,4">
+        <StackPanel
+            Margin="0,4"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="Button">
-                    <Setter Property="Margin" Value="4, 0" />
+                    <Setter Property="Margin" Value="4,0" />
                     <Setter Property="Padding" Value="2" />
                     <Setter Property="Width" Value="64" />
                 </Style>

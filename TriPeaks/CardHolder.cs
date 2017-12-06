@@ -30,10 +30,7 @@ namespace TriPeaks
         /// <summary>
         /// Returns how many cards are left in the stack.
         /// </summary>
-        public int StackCount
-        {
-            get { return BottomStack.Count; }
-        }
+        public int StackCount => BottomStack.Count;
 
         private Card _currentCard;
         /// <summary>
@@ -150,7 +147,7 @@ namespace TriPeaks
         /// <returns>true if a move was possible and successful, otherwise false.</returns>
         public bool TryMoveStackToCurrent()
         {
-            if (BottomStack.Count() == 0)
+            if (!BottomStack.Any())
                 return false;
 
             CurrentCard = BottomStack.Pop();
