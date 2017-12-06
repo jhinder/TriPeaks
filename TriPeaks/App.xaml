@@ -1,12 +1,13 @@
-﻿<Application x:Class="TriPeaks.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="TriPeaks.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
         <SolidColorBrush x:Key="GreenFeltBackground">#FF004000</SolidColorBrush>
         <SolidColorBrush x:Key="NeutralGrey">#FFC0C0C0</SolidColorBrush>
 
-        <!-- Best scaling algorithm for images -->
+        <!--  Best scaling algorithm for images  -->
         <Style TargetType="Image">
             <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
         </Style>

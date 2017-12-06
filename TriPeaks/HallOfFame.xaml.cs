@@ -21,12 +21,6 @@ namespace TriPeaks
         {
             Close();
         }
-
-        private void Window_SourceInitialized(object sender, EventArgs e)
-        {
-            IconHelper.RemoveIcon(this);
-        }
-
     }
 
     internal class HighscoreViewModel
@@ -49,21 +43,16 @@ namespace TriPeaks
     /// </summary>
     internal class HighscoreManager
     {
-
-        private static HighscoreManager instance = new HighscoreManager();
         /// <summary>
         /// The singleton insance of the high score manager.
         /// </summary>
-        internal static HighscoreManager Instance { get { return instance; } }
+        internal static HighscoreManager Instance { get; } = new HighscoreManager();
 
         private List<HighScoreEntry> highscores;
         /// <summary>
         /// The list of all high scores.
         /// </summary>
-        internal IReadOnlyList<HighScoreEntry> Highscores
-        {
-            get { return highscores; }
-        }
+        internal IReadOnlyList<HighScoreEntry> Highscores => highscores;
 
         private HighscoreManager()
         {

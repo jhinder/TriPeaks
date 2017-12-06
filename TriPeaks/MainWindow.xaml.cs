@@ -178,15 +178,9 @@ namespace TriPeaks
             }
         }
 
-        public int StreakWins
-        {
-            get { return (_streak * (_streak + 1) / 2); }
-        }
+        public int StreakWins => (_streak * (_streak + 1) / 2);
 
-        public int Score
-        {
-            get { return Wins - Losses; }
-        }
+        public int Score => Wins - Losses;
 
         private CardHolder _cardHolder;
         public CardHolder CardManager
@@ -229,7 +223,7 @@ namespace TriPeaks
             AdditionalString = string.Empty;
         }
 
-        private string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
+        private readonly string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
         private short reachedPeaks;
 
         public void ReachedPeak(short number)
@@ -239,7 +233,7 @@ namespace TriPeaks
                 return;
             }
             if (number < 1 || number > 3)
-                throw new ArgumentOutOfRangeException(nameof(number), number, "The peak number must be between 1 and 3.");
+                throw new ArgumentOutOfRangeException(nameof(number), number, @"The peak number must be between 1 and 3.");
             reachedPeaks++;
             int bonus = (reachedPeaks != 3 ? 15 : 30);
             Wins += bonus;

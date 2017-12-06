@@ -20,11 +20,6 @@ namespace TriPeaks
             Close();
         }
 
-        private void Window_SourceInitialized(object sender, System.EventArgs e)
-        {
-            IconHelper.RemoveIcon(this);
-        }
-
         private async void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             await Dispatcher.InvokeAsync(() => {
@@ -39,9 +34,6 @@ namespace TriPeaks
 
         private static readonly Assembly thisAssembly = typeof(AboutDialogViewModel).Assembly;
 
-        private readonly string assemblyVersion = "Version 1.0";
-        private readonly string assemblyCopyright = "&#169; dfragment.net 2015-2016";
-
         public AboutDialogViewModel()
         {
             var copyrightAttrs = thisAssembly.GetCustomAttributes<AssemblyCopyrightAttribute>();
@@ -49,21 +41,14 @@ namespace TriPeaks
             // AssemblyVersionAttribute is not added to the assembly metadata.
 
             if (copyrightAttrs.Any())
-                assemblyCopyright = copyrightAttrs.First().Copyright;
+                Copyright = copyrightAttrs.First().Copyright;
             if (versionAttrs.Any())
-                assemblyVersion = $"Version {versionAttrs.First().Version}";
+                Version = $"Version {versionAttrs.First().Version}";
         }
 
-        public string Version
-        {
-            get { return assemblyVersion; }
-        }
+        public string Version { get; } = "Version 1.0";
 
-        public string Copyright
-        {
-            get { return assemblyCopyright; }
-        }
-
+        public string Copyright { get; } = "&#169; dfragment.net 2015-2016";
     }
 
 }
