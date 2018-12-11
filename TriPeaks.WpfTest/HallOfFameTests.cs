@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Xunit;
-
-namespace TriPeaks.Test
+﻿namespace TriPeaks.Test
 {
     public class HallOfFameTests
     {
