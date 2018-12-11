@@ -1,20 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace TriPeaks.Test
 {
-    [TestClass]
     public class ViewModelInstatiationTests
     {
-        [TestMethod]
+        [Fact]
         public void TestAboutDialogVM()
         {
             var advm = new AboutDialogViewModel();
-            Assert.IsFalse(string.IsNullOrEmpty(advm.Copyright));
-            Assert.IsFalse(string.IsNullOrEmpty(advm.Version));
+            Assert.False(string.IsNullOrEmpty(advm.Copyright));
+            Assert.False(string.IsNullOrEmpty(advm.Version));
         }
 
-        [TestMethod]
+        [Fact]
         public void TestBackSelectDialogVM()
         {
             var bsvm = new BackSelectViewModel();
@@ -24,14 +22,14 @@ namespace TriPeaks.Test
             bsvm.SelectedBack = 1;
             bsvm.Save();
             var secondBsvm = new BackSelectViewModel();
-            Assert.AreEqual(bsvm.SelectedBack, secondBsvm.SelectedBack);
-            Assert.AreEqual(1, changes);
+            Assert.Equal(bsvm.SelectedBack, secondBsvm.SelectedBack);
+            Assert.Equal(1, changes);
             secondBsvm.SelectedBack = oldValue;
 
             bsvm.SelectedBack = -1;
-            Assert.AreEqual(0, bsvm.SelectedBack);
+            Assert.Equal(0, bsvm.SelectedBack);
             bsvm.SelectedBack = 10;
-            Assert.AreEqual(0, bsvm.SelectedBack);
+            Assert.Equal(0, bsvm.SelectedBack);
         }
     }
 }

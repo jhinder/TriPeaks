@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace TriPeaks.Test
 {
-    [TestClass]
     public class HallOfFameTests
     {
-
+        /*
         private HighscoreManager hsm;
 
-        [TestInitialize]
-        public void Setup()
+        public HallOfFameTests()
         {
             hsm = HighscoreManager.Instance;
         }
 
-        [TestMethod]
+        [Fact] 
         public void InsertLargeScore()
         {
             var maxScore = hsm.Highscores.Max(x => x.Score);
@@ -29,14 +27,14 @@ namespace TriPeaks.Test
             hsm.SaveHighscores(); // for code coverage only
         }
 
-        [TestMethod]
+        [Fact]
         public void TryInsertingSmallValue()
         {
             hsm.AddHighscore("Unit Test", int.MinValue);
             Assert.IsFalse(hsm.Highscores.Any(x => x.Score == int.MinValue), "int.MinValue could be inserted.");
         }
 
-        [TestMethod]
+        [Fact]
         public void HighAndLowScoreChecker()
         {
             bool canInsertNegative = hsm.IsHighscore(int.MinValue);
@@ -45,14 +43,14 @@ namespace TriPeaks.Test
             Assert.IsTrue(canInsertPositive, "int.MaxValue could not be inserted.");
         }
 
-        [TestMethod]
+        [Fact]
         public void AreAnyScoresPresent()
         {
             var any = hsm.LoadHighscores().Any();
             Assert.IsTrue(any, "No high scores could be loaded.");
         }
 
-        [TestMethod]
+        [Fact]
         [ExpectedException(typeof(ArgumentNullException), AllowDerivedTypes = false)]
         public void InsertWithInvalidValues()
         {
@@ -60,7 +58,7 @@ namespace TriPeaks.Test
             hsm.AddHighscore(string.Empty, 12345);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestHighscoreViewModel()
         {
             var allScores = hsm.Highscores;
@@ -71,6 +69,6 @@ namespace TriPeaks.Test
                 i++;
             }
         }
-
+        */
     }
 }

@@ -1,110 +1,44 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace TriPeaks.Test
 {
-    [TestClass]
-    public class CardTests
+    public sealed class CardTests
     {
-
-        private CardHolder cardHolder;
-
-        [TestInitialize]
-        public void Setup()
+        [Theory(DisplayName = "Test adjacency of card pairs")]
+        [InlineData(CardValue.Ace, CardValue.Two, true)]
+        [InlineData(CardValue.Ace, CardValue.King, true)]
+        [InlineData(CardValue.Five, CardValue.Eight, false)]
+        [InlineData(CardValue.Queen, CardValue.Three, false)]
+        [InlineData(CardValue.Ace, CardValue.Ace, false)]
+        public void TestAdjacency(CardValue left, CardValue right, bool areAdjacent)
         {
-            cardHolder = new CardHolder();
+            Assert.Equal(areAdjacent, left.IsAdjacentTo(right));
+            Assert.Equal(areAdjacent, right.IsAdjacentTo(left));
         }
 
-        [TestMethod]
-        public void TestAdjacency()
-        {
-
-            bool adjacentA2 = CardValues.Ace.IsAdjacentTo(CardValues.Two);
-            bool adjacentAK = CardValues.Ace.IsAdjacentTo(CardValues.King);
-            bool adjacentKA = CardValues.King.IsAdjacentTo(CardValues.Ace);
-            bool adjacent98 = CardValues.Nine.IsAdjacentTo(CardValues.Eight);
-            bool notAdjacent = CardValues.Five.IsAdjacentTo(CardValues.Eight);
-            bool notAdjacentC = CardValues.Queen.IsAdjacentTo(CardValues.Three);
-            bool notAdjacentSame = CardValues.Ace.IsAdjacentTo(CardValues.Ace);
-
-            Assert.IsTrue(adjacentA2);
-            Assert.IsTrue(adjacentAK);
-            Assert.IsTrue(adjacentKA);
-            Assert.IsTrue(adjacent98);
-            Assert.IsFalse(notAdjacent);
-            Assert.IsFalse(notAdjacentC);
-            Assert.IsFalse(notAdjacentSame);
-
-        }
-
-        [TestMethod]
-        public void TestDeck()
-        {
-            cardHolder = new CardHolder(); // we must guarantee a frest stack for this test
-            Assert.AreEqual(23, cardHolder.BottomStack.Count);
-            Assert.AreEqual(23, cardHolder.StackCount);
-            Assert.AreEqual(28, cardHolder.PyramidCards.Count);
-        }
-
-        [TestMethod]
-        public void ShiftEntireStack()
-        {
-            cardHolder = new CardHolder();
-            while (cardHolder.TryMoveStackToCurrent());
-            Assert.AreEqual(0, cardHolder.StackCount);
-        }
-
-        [TestMethod]
-        public void PlayStack()
-        {
-            int events = 0;
-            cardHolder.PropertyChanged += (s, e) => { events++; };
-            int oldStackCount = cardHolder.StackCount;
-            var oldCard = cardHolder.CurrentCard;
-            var didMove = cardHolder.TryMoveStackToCurrent();
-            Assert.IsTrue(didMove);
-            Assert.AreEqual(3, events); // BottomStack, StackCount, CurrentCard
-            int newStackCount = cardHolder.StackCount;
-            var newCard = cardHolder.CurrentCard;
-
-            Assert.AreEqual(oldStackCount - 1, newStackCount);
-            Assert.AreNotEqual(oldCard, newCard);
-        }
-
-        [TestMethod]
-        public void PlayEntirePyramid()
-        {
-            cardHolder = new CardHolder();
-            for (int i = 27; i >= 0; i--) {
-                cardHolder.PyramidCards[i].Played = true;
-                cardHolder.RecalculateCardsTurned();
-            }
-            Assert.IsTrue(cardHolder.PyramidCards.All(x => x.Played && !x.Hidden));
-        }
-
-        [TestMethod]
+        [Fact]
         public void TestCardClass()
         {
-            Card c = new Card { Colour = CardColours.Diamond, Hidden = true, Played = false, Value = CardValues.Eight };
+            Card c = new Card { Colour = CardColour.Diamond, Hidden = true, Played = false, Value = CardValue.Eight };
             int changes = 0;
             c.PropertyChanged += (s, e) => { changes++; };
             c.Hidden = false;
             c.Played = true;
-            Assert.AreEqual(changes, 2);
-            Assert.AreEqual(c.Colour, CardColours.Diamond);
-            Assert.AreEqual(c.Hidden, false);
-            Assert.AreEqual(c.Played, true);
-            Assert.AreEqual(c.Value, CardValues.Eight);
+            Assert.Equal(2, changes);
+            Assert.Equal(CardColour.Diamond, c.Colour);
+            Assert.False(c.Hidden);
+            Assert.True(c.Played);
+            Assert.Equal(CardValue.Eight, c.Value);
         }
 
-        [TestMethod]
+        /*
+        [Fact]
         public void TestCardEvArgs()
         {
-            Card c = new Card { Colour = CardColours.Club, Hidden = false, Played = false, Value = CardValues.Ten };
+            Card c = new Card { Colour = CardColour.Club, Hidden = false, Played = false, Value = CardValue.Ten };
             CardEventArgs ca = new CardEventArgs(c);
             Assert.AreEqual(c, ca.Card);
         }
-
+        */
     }
 }
