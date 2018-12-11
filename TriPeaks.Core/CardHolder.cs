@@ -9,11 +9,13 @@ namespace TriPeaks
     public sealed class CardHolder : INotifyPropertyChanged
     {
         // The raw deck. Contains all available playing cards.
-        private IList<Card> rawDeck = new List<Card>(GenerateDeck());
+        private readonly IList<Card> rawDeck = new List<Card>(GenerateDeck());
 
         internal event EventHandler<CardPlayedEventArgs> CardPlayed;
 
         private Stack<Card> _bottomStack;
+        private Card _currentCard;
+
         /// <summary>
         /// The bottom stack from which the player can draw cards,
         /// </summary>
@@ -33,7 +35,6 @@ namespace TriPeaks
         /// </summary>
         public int StackCount => BottomStack.Count;
 
-        private Card _currentCard;
         /// <summary>
         /// The current card, on top of which all moves are made.
         /// </summary>
@@ -51,7 +52,7 @@ namespace TriPeaks
         /// <summary>
         /// A list of all cards in use by the "pyramids".
         /// </summary>
-        public List<Card> PyramidCards { get; private set; }
+        public List<Card> PyramidCards { get; }
 
         /// <summary>
         /// Sets the hidden status of the entire deck.
@@ -78,11 +79,11 @@ namespace TriPeaks
             while (rawDeck.Any(c => c.Hidden))
             {
                 int rand = r.Next(0, 52);
-                tmpCard = rawDeck.ElementAt(rand);
+                tmpCard = rawDeck[rand];
                 if (tmpCard.Hidden)
                 {
                     shuffledDeck.Enqueue(tmpCard);
-                    rawDeck.ElementAt(rand).Hidden = false;
+                    rawDeck[rand].Hidden = false;
                 }
             }
 
@@ -124,7 +125,7 @@ namespace TriPeaks
             int n;
             // Step 1: cards 1 to 3 (index 0-2)
             for (n = 0; n < 3; n++)
-                PyramidCards[n].Hidden = BothCardsPlayed(2 * (n + 1) + 1, 2 * (n + 1) + 2);
+                PyramidCards[n].Hidden = BothCardsPlayed((2 * (n + 1)) + 1, (2 * (n + 1)) + 2);
 
             // The 2nd row is not very nice because there is no single function, compared to rows 1 & 3.
             // Maybe we find one some day.
@@ -137,7 +138,7 @@ namespace TriPeaks
 
             // Step 3: cards 10 to 18 (index 9 to 17)
             for (n = 9; n < 18; n++)
-                PyramidCards[n].Hidden = BothCardsPlayed((n + 9), (n + 10));
+                PyramidCards[n].Hidden = BothCardsPlayed(n + 9, n + 10);
         }
 
         private bool BothCardsPlayed(int index1, int index2)
@@ -151,7 +152,7 @@ namespace TriPeaks
         /// <returns>true if a move was possible and successful, otherwise false.</returns>
         public bool TryMoveStackToCurrent()
         {
-            if (BottomStack.Count() == 0)
+            if (BottomStack.Count == 0)
                 return false;
 
             CurrentCard = BottomStack.Pop();
@@ -169,11 +170,16 @@ namespace TriPeaks
         {
             // Generation order: colours, then values
             for (short colour = 0; colour < 4; colour++)
+            {
                 for (short value = 0; value < 13; value++)
+                {
                     yield return new Card { Colour = (CardColour)colour, Value = (CardValue)value };
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

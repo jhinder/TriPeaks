@@ -37,9 +37,6 @@ namespace TriPeaks
 
     internal class AboutDialogViewModel
     {
-        private readonly string assemblyVersion = "Version 1.0";
-        private readonly string assemblyCopyright = "&#169; dfragment.net 2015-2017";
-
         public AboutDialogViewModel()
         {
             var thisAssembly = GetType().Assembly;
@@ -47,12 +44,12 @@ namespace TriPeaks
             var version = thisAssembly.GetName().Version.ToString(2);
 
             if (copyrightAttr != null)
-                assemblyCopyright = copyrightAttr.Copyright;
-            assemblyVersion = $"Version {version}";
+                Copyright = copyrightAttr.Copyright;
+            Version = $"Version {version}";
         }
 
-        public string Version => assemblyVersion;
+        public string Version { get; } = "Version 1.0";
 
-        public string Copyright => assemblyCopyright;
+        public string Copyright { get; } = "&#169; dfragment.net 2015-2017";
     }
 }

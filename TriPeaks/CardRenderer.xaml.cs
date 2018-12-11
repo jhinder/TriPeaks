@@ -14,8 +14,7 @@ namespace TriPeaks
     /// </summary>
     public partial class CardRenderer : UserControl
     {
-        internal delegate void CardClickHandler(object sender, CardEventArgs e);
-        internal event CardClickHandler CardClicked;
+        internal event EventHandler<CardEventArgs> CardClicked;
 
         public CardRenderer()
         {
@@ -50,8 +49,7 @@ namespace TriPeaks
         {
             if (value == null)
                 return string.Empty;
-            string imageUri;
-            bool didGet = suitMap.TryGetValue((CardColour)value, out imageUri);
+            bool didGet = suitMap.TryGetValue((CardColour)value, out var imageUri);
             return didGet ? imageUri : string.Empty;
         }
 
@@ -86,8 +84,7 @@ namespace TriPeaks
         {
             if (value == null)
                 return string.Empty;
-            string retVal;
-            bool didGet = numberMap.TryGetValue((CardValue)value, out retVal);
+            bool didGet = numberMap.TryGetValue((CardValue)value, out var retVal);
             return didGet ? retVal : string.Empty;
         }
 
@@ -113,8 +110,7 @@ namespace TriPeaks
         {
             if (value == null)
                 return Colors.Black;
-            Color retColour;
-            bool didGet = colourMap.TryGetValue((CardColour)value, out retColour);
+            bool didGet = colourMap.TryGetValue((CardColour)value, out var retColour);
             return didGet ? retColour : Colors.Black;
         }
 

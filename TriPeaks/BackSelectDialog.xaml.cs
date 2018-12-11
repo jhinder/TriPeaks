@@ -15,7 +15,7 @@ namespace TriPeaks
     /// </summary>
     public partial class BackSelectDialog : Window
     {
-        private BackSelectViewModel viewModel;
+        private readonly BackSelectViewModel viewModel;
 
         public BackSelectDialog()
         {
@@ -36,8 +36,7 @@ namespace TriPeaks
 
         private void SetBackExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            int newBack;
-            bool didParse = int.TryParse(e.Parameter.ToString(), out newBack);
+            bool didParse = int.TryParse(e.Parameter.ToString(), out var newBack);
             viewModel.SelectedBack = didParse ? newBack : 0;
         }
 
@@ -53,6 +52,8 @@ namespace TriPeaks
     public class BackSelectViewModel : INotifyPropertyChanged
     {
         private int _selectedBack;
+        private readonly Properties.Settings settings;
+
         /// <summary>
         /// The index of the selected card back.
         /// </summary>
@@ -67,8 +68,6 @@ namespace TriPeaks
                 RaisePropertyChanged();
             }
         }
-
-        private Properties.Settings settings;
 
         public BackSelectViewModel()
         {
@@ -91,6 +90,7 @@ namespace TriPeaks
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

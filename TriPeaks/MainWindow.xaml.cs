@@ -17,7 +17,7 @@ namespace TriPeaks
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TriPeaksViewModel viewModel;
+        private readonly TriPeaksViewModel viewModel;
 
         public MainWindow()
         {
@@ -50,10 +50,7 @@ namespace TriPeaks
         private async Task AsyncDialog<W>()
             where W : Window, new()
         {
-            await Dispatcher.InvokeAsync(() =>
-            {
-                (new W()).ShowDialog();
-            });
+            await Dispatcher.InvokeAsync(() => (new W()).ShowDialog());
         }
 
         #endregion
@@ -285,8 +282,7 @@ namespace TriPeaks
         {
             if (value == null)
                 return string.Empty;
-            int nValue;
-            bool didParse = int.TryParse(value.ToString(), out nValue);
+            bool didParse = int.TryParse(value.ToString(), out var nValue);
             if (!didParse)
                 nValue = 0;
             return string.Format(CultureInfo.CurrentCulture, "{0}${1}", (nValue < 0) ? Strings.LostString : Strings.WonString, Math.Abs(nValue));
@@ -308,8 +304,11 @@ namespace TriPeaks
             // Short circuiting is essential here.
             if (value != null
                 && !(value is CardHolder) // for the main peaks where we have no binding path
-                && (bool)value == false)
+                && !(bool)value)
+            {
                 return null; // hidden -> false? No image overlay
+            }
+
             int back = Properties.Settings.Default.Back;
             if (back < 0 || back > 7)
                 back = 0;
