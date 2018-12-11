@@ -36,16 +36,16 @@ namespace TriPeaks
 
     #region Converter
 
-    [ValueConversion(typeof(CardColours), typeof(string))]
+    [ValueConversion(typeof(CardColour), typeof(string))]
     internal class ColourToSuitConverter : IValueConverter
     {
 
-        private static readonly IReadOnlyDictionary<CardColours, string> suitMap = new Dictionary<CardColours, string>()
+        private static readonly IReadOnlyDictionary<CardColour, string> suitMap = new Dictionary<CardColour, string>()
         {
-            {CardColours.Club,    "/Resources/suit/club.png" },
-            {CardColours.Diamond, "/Resources/suit/diamond.png" },
-            {CardColours.Heart,   "/Resources/suit/heart.png" },
-            {CardColours.Spade,   "/Resources/suit/spade.png" }
+            {CardColour.Club,    "/Resources/suit/club.png" },
+            {CardColour.Diamond, "/Resources/suit/diamond.png" },
+            {CardColour.Heart,   "/Resources/suit/heart.png" },
+            {CardColour.Spade,   "/Resources/suit/spade.png" }
         };
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -53,7 +53,7 @@ namespace TriPeaks
             if (value == null)
                 return string.Empty;
             string imageUri;
-            bool didGet = suitMap.TryGetValue((CardColours)value, out imageUri);
+            bool didGet = suitMap.TryGetValue((CardColour)value, out imageUri);
             return didGet ? imageUri : string.Empty;
         }
 
@@ -64,24 +64,24 @@ namespace TriPeaks
         }
     }
 
-    [ValueConversion(typeof(CardValues), typeof(string))]
+    [ValueConversion(typeof(CardValue), typeof(string))]
     internal class CardToNumberConverter : IValueConverter
     {
-        private static readonly IReadOnlyDictionary<CardValues, string> numberMap = new Dictionary<CardValues, string>()
+        private static readonly IReadOnlyDictionary<CardValue, string> numberMap = new Dictionary<CardValue, string>()
         {
-            {CardValues.Ace,   "A"},
-            {CardValues.Two,   "2"},
-            {CardValues.Three, "3"},
-            {CardValues.Four,  "4"},
-            {CardValues.Five,  "5"},
-            {CardValues.Six,   "6"},
-            {CardValues.Seven, "7"},
-            {CardValues.Eight, "8"},
-            {CardValues.Nine,  "9"},
-            {CardValues.Ten,   "10"},
-            {CardValues.Jack,  "J"},
-            {CardValues.Queen, "Q"},
-            {CardValues.King,  "K"}
+            {CardValue.Ace,   "A"},
+            {CardValue.Two,   "2"},
+            {CardValue.Three, "3"},
+            {CardValue.Four,  "4"},
+            {CardValue.Five,  "5"},
+            {CardValue.Six,   "6"},
+            {CardValue.Seven, "7"},
+            {CardValue.Eight, "8"},
+            {CardValue.Nine,  "9"},
+            {CardValue.Ten,   "10"},
+            {CardValue.Jack,  "J"},
+            {CardValue.Queen, "Q"},
+            {CardValue.King,  "K"}
         };
     
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -89,7 +89,7 @@ namespace TriPeaks
             if (value == null)
                 return string.Empty;
             string retVal;
-            bool didGet = numberMap.TryGetValue((CardValues)value, out retVal);
+            bool didGet = numberMap.TryGetValue((CardValue)value, out retVal);
             return didGet ? retVal : string.Empty;
         }
 
@@ -100,16 +100,16 @@ namespace TriPeaks
         }
     }
 
-    [ValueConversion(typeof(CardColours), typeof(Color))]
+    [ValueConversion(typeof(CardColour), typeof(Color))]
     internal class SuitToColourConverter : IValueConverter
     {
 
-        private static readonly IReadOnlyDictionary<CardColours, Color> colourMap = new Dictionary<CardColours, Color>()
+        private static readonly IReadOnlyDictionary<CardColour, Color> colourMap = new Dictionary<CardColour, Color>()
         {
-            {CardColours.Club,    Colors.Black},
-            {CardColours.Diamond, Colors.Red},
-            {CardColours.Heart,   Colors.Red},
-            {CardColours.Spade,   Colors.Black}
+            {CardColour.Club,    Colors.Black},
+            {CardColour.Diamond, Colors.Red},
+            {CardColour.Heart,   Colors.Red},
+            {CardColour.Spade,   Colors.Black}
         };
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -117,7 +117,7 @@ namespace TriPeaks
             if (value == null)
                 return Colors.Black;
             Color retColour;
-            bool didGet = colourMap.TryGetValue((CardColours)value, out retColour);
+            bool didGet = colourMap.TryGetValue((CardColour)value, out retColour);
             return didGet ? retColour : Colors.Black;
         }
 

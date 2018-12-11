@@ -188,6 +188,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TriPeaks.Core\TriPeaks.Core.csproj">
+      <Project>{767ec4b8-7c75-48b1-8c66-8093dc6e7937}</Project>
+      <Name>TriPeaks.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
