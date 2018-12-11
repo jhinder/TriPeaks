@@ -11,7 +11,7 @@ namespace TriPeaks
     {
         private bool _hidden = false;
         private bool _played = false;
-        
+
         /// <summary>
         /// Determines if a card is hidden, i.e. its back is showing.
         /// </summary>
@@ -35,7 +35,7 @@ namespace TriPeaks
         /// Gets or sets the value of the card.
         /// </summary>
         public CardValue Value { get; set; }
-        
+
         /// <summary>
         /// Gets or sets if this card has already been played.
         /// </summary>
@@ -52,7 +52,7 @@ namespace TriPeaks
                 RaisePropertyChanged();
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -14,7 +14,6 @@ namespace TriPeaks
     /// </summary>
     public partial class CardRenderer : UserControl
     {
-
         internal delegate void CardClickHandler(object sender, CardEventArgs e);
         internal event CardClickHandler CardClicked;
 
@@ -28,7 +27,7 @@ namespace TriPeaks
             var card = (DataContext as Card);
             if (card == null || card.Hidden || CardClicked == null)
                 return;
-            
+
             card.Played = true;
             CardClicked(this, new CardEventArgs(card));
         }
@@ -39,7 +38,6 @@ namespace TriPeaks
     [ValueConversion(typeof(CardColour), typeof(string))]
     internal class ColourToSuitConverter : IValueConverter
     {
-
         private static readonly IReadOnlyDictionary<CardColour, string> suitMap = new Dictionary<CardColour, string>()
         {
             {CardColour.Club,    "/Resources/suit/club.png" },
@@ -83,7 +81,7 @@ namespace TriPeaks
             {CardValue.Queen, "Q"},
             {CardValue.King,  "K"}
         };
-    
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null)
@@ -103,7 +101,6 @@ namespace TriPeaks
     [ValueConversion(typeof(CardColour), typeof(Color))]
     internal class SuitToColourConverter : IValueConverter
     {
-
         private static readonly IReadOnlyDictionary<CardColour, Color> colourMap = new Dictionary<CardColour, Color>()
         {
             {CardColour.Club,    Colors.Black},
@@ -134,14 +131,12 @@ namespace TriPeaks
 
     internal class CardEventArgs : RoutedEventArgs
     {
-
         public Card Card { get; set; }
 
         public CardEventArgs(Card card)
         {
             Card = card;
         }
-
     }
 
     #endregion

@@ -103,7 +103,6 @@ namespace TriPeaks
                 canSave = false;
             }
         }
-
     }
 
     /// <summary>
@@ -112,7 +111,6 @@ namespace TriPeaks
     [Serializable]
     internal sealed class HighScoreEntry
     {
-
         private int _score;
 
         /// <summary>
@@ -133,6 +131,5 @@ namespace TriPeaks
                 _score = value;
             }
         }
-        
     }
 }

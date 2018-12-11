@@ -10,7 +10,7 @@ namespace TriPeaks
     {
         // The raw deck. Contains all available playing cards.
         private IList<Card> rawDeck = new List<Card>(GenerateDeck());
-        
+
         internal event EventHandler<CardPlayedEventArgs> CardPlayed;
 
         private Stack<Card> _bottomStack;
@@ -50,7 +50,7 @@ namespace TriPeaks
         /// A list of all cards in use by the "pyramids".
         /// </summary>
         public List<Card> PyramidCards { get; private set; }
-        
+
         /// <summary>
         /// Sets the hidden status of the entire deck.
         /// </summary>
@@ -70,7 +70,7 @@ namespace TriPeaks
 
             // Shuffle the deck and place all cards in a queue.
             var shuffledDeck = new Queue<Card>(52);
-            
+
             Random r = new Random();
             Card tmpCard;
             while (rawDeck.Any(c => c.Hidden))
@@ -92,7 +92,7 @@ namespace TriPeaks
                 card.Hidden = true;
                 BottomStack.Push(card);
             }
-            
+
             // Place one card as the initial playing card.
             CurrentCard = shuffledDeck.Dequeue();
             CurrentCard.Hidden = false;
@@ -109,7 +109,6 @@ namespace TriPeaks
 
             // And finally use the correctly turned queue as the basis for the pyramid cards.
             PyramidCards = rehiddenCards.ToList();
-
         }
 
         /// <summary>
@@ -134,7 +133,6 @@ namespace TriPeaks
             // Step 3: cards 10 to 18 (index 9 to 17)
             for (n = 9; n < 18; n++)
                 PyramidCards[n].Hidden = BothCardsPlayed((n + 9), (n + 10));
-
         }
 
         private bool BothCardsPlayed(int index1, int index2)
@@ -175,6 +173,5 @@ namespace TriPeaks
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

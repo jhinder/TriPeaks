@@ -11,7 +11,6 @@ namespace TriPeaks
     /// </summary>
     public partial class HallOfFame : Window
     {
-
         public HallOfFame()
         {
             InitializeComponent();
@@ -26,7 +25,6 @@ namespace TriPeaks
         {
             IconHelper.RemoveIcon(this);
         }
-
     }
 
     internal class HighscoreViewModel
@@ -35,5 +33,4 @@ namespace TriPeaks
 
         public static int[] Scores => HighscoreManager.Instance.GetScoreboard().Select(x => x.Score).ToArray();
     }
-
 }

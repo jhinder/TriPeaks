@@ -17,7 +17,6 @@ namespace TriPeaks
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private TriPeaksViewModel viewModel;
 
         public MainWindow()
@@ -138,14 +137,12 @@ namespace TriPeaks
             viewModel.Wins += viewModel.Streak; // 1 card = $1, 2 cards = $2, ...
             viewModel.CardManager.RecalculateCardsTurned();
         }
-
     }
 
     #region View Model
 
     internal class TriPeaksViewModel : INotifyPropertyChanged
     {
-
         private string _additionalString = string.Empty;
         public string AdditionalString
         {
@@ -274,7 +271,6 @@ namespace TriPeaks
     [ValueConversion(typeof(int), typeof(string))]
     internal class WinLossConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
@@ -297,7 +293,6 @@ namespace TriPeaks
 
     public class CardBackProvider : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Short circuiting is essential here.
@@ -317,5 +312,4 @@ namespace TriPeaks
             throw new NotImplementedException();
         }
     }
-
 }

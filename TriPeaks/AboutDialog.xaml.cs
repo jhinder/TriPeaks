@@ -53,7 +53,5 @@ namespace TriPeaks
         public string Version => assemblyVersion;
 
         public string Copyright => assemblyCopyright;
-
     }
-
 }

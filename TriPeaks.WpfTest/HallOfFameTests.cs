@@ -14,7 +14,7 @@ namespace TriPeaks.Test
             hsm = HighscoreManager.Instance;
         }
 
-        [Fact] 
+        [Fact]
         public void InsertLargeScore()
         {
             var maxScore = hsm.Highscores.Max(x => x.Score);

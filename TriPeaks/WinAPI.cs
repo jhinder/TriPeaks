@@ -30,9 +30,7 @@ namespace TriPeaks
                 // same thing: 0 means the call has failed.
                 NativeMethods.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
             }
-            
         }
-
     }
 
     [ExcludeFromCodeCoverage]
@@ -47,6 +45,5 @@ namespace TriPeaks
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)] // SetWindowPos is defined as BOOL, which corresponds to Bool according to the CA1414 docs.
         internal static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
-        
     }
 }

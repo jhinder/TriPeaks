@@ -22,6 +22,5 @@
             // Checking for actual adjacency.
             return (oneCard == otherCard + 1 || otherCard == oneCard + 1);
         }
-
     }
 }

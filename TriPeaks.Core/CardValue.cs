@@ -44,5 +44,4 @@
         /// <summary>King (K)</summary>
         King
     }
-
 }

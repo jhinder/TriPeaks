@@ -15,7 +15,6 @@ namespace TriPeaks
     /// </summary>
     public partial class BackSelectDialog : Window
     {
-
         private BackSelectViewModel viewModel;
 
         public BackSelectDialog()
@@ -53,7 +52,6 @@ namespace TriPeaks
     /// </summary>
     public class BackSelectViewModel : INotifyPropertyChanged
     {
-
         private int _selectedBack;
         /// <summary>
         /// The index of the selected card back.
@@ -81,7 +79,6 @@ namespace TriPeaks
             } catch (InvalidCastException) {
                 SelectedBack = 0;
             }
-
         }
 
         public void Save()
@@ -89,7 +86,6 @@ namespace TriPeaks
             settings.Back = SelectedBack;
             settings.Save();
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -103,7 +99,6 @@ namespace TriPeaks
     /// </summary>
     public class IndexToBorderConverter : IMultiValueConverter
     {
-
         private static readonly SolidColorBrush blackColour = new SolidColorBrush(Colors.Black);
         private static readonly SolidColorBrush whiteColour = new SolidColorBrush(Colors.White);
 
@@ -125,5 +120,4 @@ namespace TriPeaks
             throw new NotImplementedException();
         }
     }
-
 }
