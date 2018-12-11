@@ -50,7 +50,8 @@ namespace TriPeaks
         private async Task AsyncDialog<W>()
             where W : Window, new()
         {
-            await Dispatcher.InvokeAsync(() => {
+            await Dispatcher.InvokeAsync(() =>
+            {
                 (new W()).ShowDialog();
             });
         }
@@ -59,7 +60,8 @@ namespace TriPeaks
 
         private void Redeal()
         {
-            if (viewModel.GameInProgress) {
+            if (viewModel.GameInProgress)
+            {
                 // Dealing while game in session = $140 penalty
                 var mres = MessageBox.Show(Strings.RedealPenalty, Strings.RedealPenaltyTitle,
                     MessageBoxButton.YesNo,
@@ -77,7 +79,8 @@ namespace TriPeaks
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (viewModel.GameInProgress) {
+            if (viewModel.GameInProgress)
+            {
                 var mres = MessageBox.Show(Strings.ExitingPenalty, Strings.ExitingTitle,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question,
@@ -89,7 +92,8 @@ namespace TriPeaks
                     viewModel.Losses += 140;
             }
 
-            if (!e.Cancel) {
+            if (!e.Cancel)
+            {
                 // App will exit
                 Cleanup();
             }
@@ -117,11 +121,14 @@ namespace TriPeaks
         private void StackDrawExecute(object sender, ExecutedRoutedEventArgs e)
         {
             bool moveSuccess = viewModel.CardManager.TryMoveStackToCurrent();
-            if (moveSuccess) {
+            if (moveSuccess)
+            {
                 viewModel.Losses += 5;
                 viewModel.Streak = 0;
                 viewModel.AdditionalString = string.Empty;
-            } else {
+            }
+            else
+            {
                 viewModel.Endgame();
             }
         }
@@ -146,7 +153,7 @@ namespace TriPeaks
         private string _additionalString = string.Empty;
         public string AdditionalString
         {
-            get { return _additionalString;  }
+            get { return _additionalString; }
             set
             {
                 _additionalString = value;
@@ -155,8 +162,9 @@ namespace TriPeaks
         }
 
         private int _wins;
-        public int Wins {
-            get { return _wins;  }
+        public int Wins
+        {
+            get { return _wins; }
             set
             {
                 _wins = value;
@@ -166,7 +174,8 @@ namespace TriPeaks
         }
 
         private int _losses;
-        public int Losses {
+        public int Losses
+        {
             get { return _losses; }
             set
             {
@@ -238,12 +247,13 @@ namespace TriPeaks
             AdditionalString = string.Empty;
         }
 
-        private string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
+        private readonly string[] peakNames = { "Ahmadas", "Gehaldi", "Zackheer" };
         private short reachedPeaks;
 
         public void ReachedPeak(short number)
         {
-            if (number == 0) {
+            if (number == 0)
+            {
                 reachedPeaks = 0;
                 return;
             }

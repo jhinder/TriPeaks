@@ -74,9 +74,12 @@ namespace TriPeaks
         {
             settings = Properties.Settings.Default;
 
-            try {
+            try
+            {
                 SelectedBack = settings.Back;
-            } catch (InvalidCastException) {
+            }
+            catch (InvalidCastException)
+            {
                 SelectedBack = 0;
             }
         }

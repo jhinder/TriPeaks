@@ -17,7 +17,8 @@ namespace TriPeaks
         /// <summary>
         /// The bottom stack from which the player can draw cards,
         /// </summary>
-        public Stack<Card> BottomStack {
+        public Stack<Card> BottomStack
+        {
             get { return _bottomStack; }
             private set
             {
@@ -36,7 +37,8 @@ namespace TriPeaks
         /// <summary>
         /// The current card, on top of which all moves are made.
         /// </summary>
-        public Card CurrentCard {
+        public Card CurrentCard
+        {
             get { return _currentCard; }
             set
             {
@@ -77,7 +79,8 @@ namespace TriPeaks
             {
                 int rand = r.Next(0, 52);
                 tmpCard = rawDeck.ElementAt(rand);
-                if (tmpCard.Hidden) {
+                if (tmpCard.Hidden)
+                {
                     shuffledDeck.Enqueue(tmpCard);
                     rawDeck.ElementAt(rand).Hidden = false;
                 }
@@ -87,7 +90,8 @@ namespace TriPeaks
             // (Yes, we get 24 cards at first. Hang on a second and you'll see why.)
             BottomStack = new Stack<Card>(23);
             Card card;
-            for (int i = 0; i < 23; i++) {
+            for (int i = 0; i < 23; i++)
+            {
                 card = shuffledDeck.Dequeue();
                 card.Hidden = true;
                 BottomStack.Push(card);
@@ -101,7 +105,8 @@ namespace TriPeaks
             // ... 18 cards of which are hidden, 10 are shown.
             var rehiddenCards = new Queue<Card>(28);
             int pos = 0;
-            foreach (var nCard in shuffledDeck) {
+            foreach (var nCard in shuffledDeck)
+            {
                 if (pos++ < 18)
                     nCard.Hidden = true;
                 rehiddenCards.Enqueue(nCard);

@@ -26,11 +26,12 @@ namespace TriPeaks
 
         private async void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            await Dispatcher.InvokeAsync(() => {
+            await Dispatcher.InvokeAsync(() =>
+            {
                 var procStart = Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
                 e.Handled = true;
                 procStart.Dispose();
-            });   
+            });
         }
     }
 
