@@ -6,12 +6,12 @@ using System.Runtime.CompilerServices;
 
 namespace TriPeaks
 {
-    class CardHolder : INotifyPropertyChanged
+    public sealed class CardHolder : INotifyPropertyChanged
     {
-        /// <summary>
-        /// The raw deck. Contains all available playing cards.
-        /// </summary>
-        private static IList<Card> rawDeck = new List<Card>(GenerateDeck());
+        // The raw deck. Contains all available playing cards.
+        private IList<Card> rawDeck = new List<Card>(GenerateDeck());
+        
+        internal event EventHandler<CardPlayedEventArgs> CardPlayed;
 
         private Stack<Card> _bottomStack;
         /// <summary>
@@ -30,10 +30,7 @@ namespace TriPeaks
         /// <summary>
         /// Returns how many cards are left in the stack.
         /// </summary>
-        public int StackCount
-        {
-            get { return BottomStack.Count; }
-        }
+        public int StackCount => BottomStack.Count;
 
         private Card _currentCard;
         /// <summary>
@@ -52,13 +49,13 @@ namespace TriPeaks
         /// <summary>
         /// A list of all cards in use by the "pyramids".
         /// </summary>
-        public List<Card> PyramidCards { get; set; }
+        public List<Card> PyramidCards { get; private set; }
         
         /// <summary>
         /// Sets the hidden status of the entire deck.
         /// </summary>
         /// <param name="hidden">Determines if the cards are supposed to be hidden (true) or shown (false).</param>
-        private static void SetHiddenForDeck(bool hidden)
+        private void SetHiddenForDeck(bool hidden)
         {
             foreach (Card card in rawDeck)
                 card.Hidden = hidden;
@@ -72,7 +69,7 @@ namespace TriPeaks
             SetHiddenForDeck(true);
 
             // Shuffle the deck and place all cards in a queue.
-            var shuffledDeck = new Queue<Card>();
+            var shuffledDeck = new Queue<Card>(52);
             
             Random r = new Random();
             Card tmpCard;
@@ -88,26 +85,27 @@ namespace TriPeaks
 
             // Place 23 cards in the bottom stack.
             // (Yes, we get 24 cards at first. Hang on a second and you'll see why.)
-            BottomStack = new Stack<Card>();
-            for (int i = 0; i < 23; i++)
-                BottomStack.Push(shuffledDeck.Dequeue());
-            foreach (Card c in BottomStack)
-                c.Hidden = true;
-
+            BottomStack = new Stack<Card>(23);
+            Card card;
+            for (int i = 0; i < 23; i++) {
+                card = shuffledDeck.Dequeue();
+                card.Hidden = true;
+                BottomStack.Push(card);
+            }
+            
             // Place one card as the initial playing card.
             CurrentCard = shuffledDeck.Dequeue();
             CurrentCard.Hidden = false;
 
             // The remaining 28 cards serve as the basis for the pyramid.
             // ... 18 cards of which are hidden, 10 are shown.
-            var rehiddenCards = new Queue<Card>();
-            for (int i = 0; i < 18; i++) {
-                tmpCard = shuffledDeck.Dequeue();
-                tmpCard.Hidden = true;
-                rehiddenCards.Enqueue(tmpCard);
+            var rehiddenCards = new Queue<Card>(28);
+            int pos = 0;
+            foreach (var nCard in shuffledDeck) {
+                if (pos++ < 18)
+                    nCard.Hidden = true;
+                rehiddenCards.Enqueue(nCard);
             }
-            foreach (Card card in shuffledDeck)
-                rehiddenCards.Enqueue(card);
 
             // And finally use the correctly turned queue as the basis for the pyramid cards.
             PyramidCards = rehiddenCards.ToList();
@@ -169,7 +167,7 @@ namespace TriPeaks
             // Generation order: colours, then values
             for (short colour = 0; colour < 4; colour++)
                 for (short value = 0; value < 13; value++)
-                    yield return new Card { Colour = (CardColours)colour, Value = (CardValues)value };
+                    yield return new Card { Colour = (CardColour)colour, Value = (CardValue)value };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

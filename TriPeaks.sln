@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriPeaks", "TriPeaks\TriPeaks.csproj", "{86EEE5F3-AAB2-4D02-BFAD-748CF7FADD94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriPeaks.Test", "TriPeaks.Test\TriPeaks.Test.csproj", "{AD8D990F-B072-4669-A31E-FF9745717D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriPeaks.Core", "TriPeaks.Core\TriPeaks.Core.csproj", "{767EC4B8-7C75-48B1-8C66-8093DC6E7937}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{AD8D990F-B072-4669-A31E-FF9745717D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD8D990F-B072-4669-A31E-FF9745717D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD8D990F-B072-4669-A31E-FF9745717D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{767EC4B8-7C75-48B1-8C66-8093DC6E7937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{767EC4B8-7C75-48B1-8C66-8093DC6E7937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{767EC4B8-7C75-48B1-8C66-8093DC6E7937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{767EC4B8-7C75-48B1-8C66-8093DC6E7937}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C62F288-8650-48C5-B540-F214155768C3}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <RootNamespace>TriPeaks</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+</Project>
