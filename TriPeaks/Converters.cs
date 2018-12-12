@@ -41,10 +41,10 @@ namespace TriPeaks
     {
         private static readonly IReadOnlyDictionary<CardColour, string> suitMap = new Dictionary<CardColour, string>()
         {
-            {CardColour.Club,    "/Resources/suit/club.png" },
-            {CardColour.Diamond, "/Resources/suit/diamond.png" },
-            {CardColour.Heart,   "/Resources/suit/heart.png" },
-            {CardColour.Spade,   "/Resources/suit/spade.png" }
+            [CardColour.Club]    = "/Resources/suit/club.png",
+            [CardColour.Diamond] = "/Resources/suit/diamond.png",
+            [CardColour.Heart]   = "/Resources/suit/heart.png",
+            [CardColour.Spade]   = "/Resources/suit/spade.png"
         };
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -61,19 +61,19 @@ namespace TriPeaks
     {
         private static readonly IReadOnlyDictionary<CardValue, string> numberMap = new Dictionary<CardValue, string>()
         {
-            {CardValue.Ace,   "A"},
-            {CardValue.Two,   "2"},
-            {CardValue.Three, "3"},
-            {CardValue.Four,  "4"},
-            {CardValue.Five,  "5"},
-            {CardValue.Six,   "6"},
-            {CardValue.Seven, "7"},
-            {CardValue.Eight, "8"},
-            {CardValue.Nine,  "9"},
-            {CardValue.Ten,   "10"},
-            {CardValue.Jack,  "J"},
-            {CardValue.Queen, "Q"},
-            {CardValue.King,  "K"}
+            [CardValue.Ace]   = "A",
+            [CardValue.Two]   = "2",
+            [CardValue.Three] = "3",
+            [CardValue.Four]  = "4",
+            [CardValue.Five]  = "5",
+            [CardValue.Six]   = "6",
+            [CardValue.Seven] = "7",
+            [CardValue.Eight] = "8",
+            [CardValue.Nine]  = "9",
+            [CardValue.Ten]   = "10",
+            [CardValue.Jack]  = "J",
+            [CardValue.Queen] = "Q",
+            [CardValue.King]  = "K"
         };
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -90,10 +90,10 @@ namespace TriPeaks
     {
         private static readonly IReadOnlyDictionary<CardColour, Color> colourMap = new Dictionary<CardColour, Color>()
         {
-            {CardColour.Club,    Colors.Black},
-            {CardColour.Diamond, Colors.Red},
-            {CardColour.Heart,   Colors.Red},
-            {CardColour.Spade,   Colors.Black}
+            [CardColour.Club]    = Colors.Black,
+            [CardColour.Diamond] = Colors.Red,
+            [CardColour.Heart]   = Colors.Red,
+            [CardColour.Spade]   = Colors.Black
         };
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
