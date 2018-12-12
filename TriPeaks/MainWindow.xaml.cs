@@ -272,31 +272,7 @@ namespace TriPeaks
     }
 
     #endregion
-
-    #region Converters
-
-    [ValueConversion(typeof(int), typeof(string))]
-    internal class WinLossConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-                return string.Empty;
-            bool didParse = int.TryParse(value.ToString(), out var nValue);
-            if (!didParse)
-                nValue = 0;
-            return string.Format(CultureInfo.CurrentCulture, "{0}${1}", (nValue < 0) ? Strings.LostString : Strings.WonString, Math.Abs(nValue));
-        }
-
-        [ExcludeFromCodeCoverage]
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    #endregion
-
+    
     public class CardBackProvider : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
